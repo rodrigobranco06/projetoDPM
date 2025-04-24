@@ -1,0 +1,16 @@
+
+/* CONTACTOS */
+
+
+
+.section_inicial .div_contacto_inicial img {
+    height: 500px; 
+    padding-right: 50px;
+}
+
+.section_inicial .div_contacto_inicial {
+    display: flex;
+    margin: 50px;
+}
+
+
