@@ -1,0 +1,1656 @@
+
+ if(typeof aff_masterTag == 'undefined' || aff_masterTag === null){	var aff_masterTag = true;
+/* Based on SHA-256 implementation of Chris Veness 2002-2017 (www.movable-type.co.uk/scripts/sha256.html) */
+
+// masterTag regenerated on 2025-02-17 12:55
+/****************************************************************************************************************
+* Master TAG
+****************************************************************************************************************/
+var AffUtils = AffUtils || {
+	Link: {
+		/**
+		 * Checks if 2 domains are different in order to get to know if a link is external
+		 *
+		 * @param link
+		 * @returns {boolean}
+		 */
+		isExternalLink: function (link) {
+			var pagedomain = AffUtils.Domain.getHostNameFromURL(document.location.href);
+			var linkdomain = AffUtils.Domain.getHostNameFromURL(link);
+			return (linkdomain !== pagedomain);
+		},
+		/**
+		 * Checks if one URL is having parameters
+		 *
+		 * @param link
+		 * @returns {boolean}
+		 */
+		containsQueryString: function (link) {
+			return (link.indexOf('?') > -1);
+		},
+		/**
+		 * Adds one parameter to one link
+		 *
+		 * @param link
+		 * @param propagateParam
+		 * @param paramName
+		 * @returns {string|*}
+		 */
+		injectParameters: function (link, propagateParam, paramName) {
+            if (propagateParam === '' || link.indexOf(paramName + '=') > -1) {
+                return this.updateInjectedParameters(link, propagateParam, paramName);
+            }
+
+			var separator;
+			if (AffUtils.Link.containsQueryString(link)) {
+				separator = '&';
+			} else {
+				separator = '?';
+			}
+			/* Check internal anchors in the URL */
+			var anchor = '';
+			var anchorposition = link.indexOf('#');
+            var anchor_before_query_string = this.isAnchorBeforeQueryStringInLink(link);
+
+			if (anchorposition > -1) {
+				anchor = link.substr(anchorposition);
+				link = link.substr(0, anchorposition);
+			}
+
+            var result = '';
+
+            // In case that there is anchor (#) in url,
+            // we're making sure if parameters are located before or after the anchor,
+            // So we'll append our parameters always after their parameters
+            if (anchor_before_query_string === true) {
+                result = link + anchor + separator + propagateParam;
+            }else{
+                result = link + separator + propagateParam + anchor;
+            }
+
+            return result;
+		},
+        /**
+         * If mlc/dedup param already exist in external url, we will update its value
+         * This happened when we click same anchor tag (that is external link) more than once
+         * @param link
+         * @param propagateParam
+         * @param paramName
+         * @returns {string|*}
+         */
+        updateInjectedParameters: function(link, propagateParam, paramName) {
+            if (propagateParam === '' || link.indexOf(paramName + '=') > -1) {
+                const propagateParamArray = propagateParam.split("=");
+                if (propagateParamArray && propagateParamArray[1] !== '') {
+                    // we are inside this condition because propagate
+                    // param already exit in the url
+                    try {
+                        var search_params;
+                        var anchor_before_query_string = this.isAnchorBeforeQueryStringInLink(link);
+                        var url = new URL(link);
+                        if (url) {
+                            var final_redirect_link = '';
+
+                            // get query string params list
+                            if (anchor_before_query_string === true) {
+                                // This is the case when # exist in the URL and before the search query string
+                                search_params = new URLSearchParams(url.hash.split('?')[1]);
+                            } else {
+                                search_params = url.searchParams;
+                            }
+
+                            // set query string params: affclk/gdp param value and create the final redirect link
+                            if (search_params) {
+                                search_params.set(paramName, propagateParamArray[1]);
+                                var updated_querystring = search_params.toString();
+
+                                if (anchor_before_query_string === true) {
+                                    // This is the case when # exist in the URL and before the search query string
+                                    var url_without_querystring = link.split('?')[0];
+                                    var updated_link = url_without_querystring + '?' + updated_querystring;
+                                    final_redirect_link = decodeURIComponent(updated_link);
+                                } else {
+                                    url.search = updated_querystring;
+                                    final_redirect_link = decodeURIComponent(url.toString());
+                                }
+
+                                return final_redirect_link;
+                            }
+                        }
+                    } catch(err) {
+                        console.log(err);
+                    }
+                }
+            }
+            return link;
+        },
+        /**
+         * It will return true if anchor is before the query search string
+         * @param link
+         * @returns {boolean}
+         */
+        isAnchorBeforeQueryStringInLink: function (link) {
+            if (link !== undefined) {
+                var anchorposition = link.indexOf('#');
+                var getParamsPosition = link.indexOf('?');
+                if (anchorposition > -1 && anchorposition < getParamsPosition) {
+                    return true;
+                }
+            }
+            return false;
+        },
+		/**
+		 * Check if the string is a link
+		 *
+		 * @param url
+		 * @returns {boolean}
+		 */
+		isLink: function (url) {
+            // In some cases url can be undefined, to avoid issues before to execute toLowerCase()
+            // we need to check that url is having any value
+            if(typeof url !== 'undefined' && url !== null){
+                url = url.toLowerCase();
+                if (url.substring(0, 7) === 'http://') {
+                    return true;
+                } else if (url.substring(0, 8) === 'https://') {
+                    return true;
+                } else if (url.substring(0, 2) === '//') {
+                    return true;
+                } else if (url.substring(0, 1) === '/') {
+                    return true;
+                }
+            }
+			return false;
+		},
+		getParameterValue: function (paramName) {
+			var queryString = window.location.search.substring(1);
+			var params = queryString.split('&');
+			for (var i = 0; i < params.length; i++) {
+				var param = params[i].split('=');
+				if (param[0] === paramName) {
+					return decodeURIComponent(param[1]);
+				}
+			}
+			return null;
+		}
+	},
+	Pixel: {
+		/**
+		 * Loads a pixel
+		 * @param pixelUrl
+		 */
+		load: function(pixelUrl){
+			try {
+				var mSaleUrl = pixelUrl;
+				var merchantSaleImg= new Image(1,1);
+				merchantSaleImg.src = mSaleUrl;
+				merchantSaleImg.onload=function() { return; }
+			} catch(e) {}
+		}
+	},
+	Cookie: {
+		/**
+		 * Gets the value of a cookie if exists
+		 *
+		 * @param cookieName
+		 * @returns {string|null}
+		 */
+		get: function (cookieName) {
+			var value = '; ' + document.cookie;
+			var parts = value.split('; ' + cookieName + '=');
+			if (parts.length === 2) {
+				return parts.pop().split(';').shift();
+			}
+			return null;
+		},
+		/**
+		 * Sets the cookie
+		 *
+		 * @param name
+		 * @param value
+		 * @param expires
+		 * @param domain
+		 */
+		set: function (name, value, expires, domain) {
+			value = value.replace(/;/g, "%3B");
+			document.cookie = name + '=' + value + '; expires = ' + expires + ';domain=.' + domain + ';path=/;SameSite=Lax'
+		},
+		setPartitioned: function(value){
+			value = encodeURI(value)
+			AffUtils.Pixel.load('https://scripts.affilired.com/v4/ptc.php?m=3939&cv=' + value);
+		},
+		extractCookieValue: function(cookieValue) {
+			if(cookieValue && cookieValue.length > 0){
+				var cookieDecoded = decodeURI(cookieValue);
+				return cookieDecoded.split('|');
+			}
+			return false;
+		},
+        /**
+         * Get cookie remaining time to expiry date
+         *
+         * @param cookieCreatedTime
+         * @param cookieLife
+         * @returns {number|null}
+         */
+        getRemainingTime: function (cookieCreatedTime, cookieLife) {
+            var cookie_expiry_time = parseInt(cookieCreatedTime) + parseInt(cookieLife);
+            var d = new Date();
+            var nowms = Math.round(d / 1000);
+            var remainingTime = parseInt(cookie_expiry_time) - parseInt(nowms);
+            return remainingTime ? remainingTime : cookieLife;
+        },
+        /**
+         * Calculate cookie expiry date time by using remaining time
+         *
+         * @param remainingTime
+         * @returns {number}
+         */
+        getExpiryDateTime : function (remainingTime) {
+            return (Math.round(new Date().getTime())) + (remainingTime * 1000);
+        },
+        /**
+         * Calculate cookie created timestamp using remaining time
+         *
+         * @param cookieLife
+         * @param remainingTime
+         * @returns {number|null}
+         */
+        getCreatedDateTime : function (cookieLife, remainingTime) {
+            var days_passed = parseInt(cookieLife) - parseInt(remainingTime);
+            var now = Math.round(new Date().getTime()) / 1000;
+            var created_timestamp = parseInt(now) - parseInt(days_passed);
+            return created_timestamp ? created_timestamp : null;
+        },
+        getLastInteractionDateTime : function (affCookie, cookieType) {
+            var cookieCreatedDateTime = '';
+            if (cookieType == 'mlc') {
+                // In case mlc cookie
+                var affCookieData = affCookie.split('|');
+                cookieCreatedDateTime = affCookieData[5];
+            } else if (cookieType == 'dedup') {
+                // In case dedup cookire
+                var affCookieData = affCookie.split('|');
+                cookieCreatedDateTime = affCookieData[1];
+            }
+            return cookieCreatedDateTime;
+        },
+        isCookieOneHourOlder : function (affCookie, cookieType) {
+            var isOld =  false;
+            if (typeof affCookie !== 'undefined' && affCookie !== '') {
+                var lastInteractionDateTime = AffUtils.Cookie.getLastInteractionDateTime(affCookie, cookieType);
+                if (lastInteractionDateTime !== '') {
+                    var current = new Date();
+                    var previous = new Date(lastInteractionDateTime*1000);
+                    var msPerMinute = 60 * 1000;
+                    var msPerHour = msPerMinute * 60;
+                    var msPerDay = msPerHour * 24;
+                    var msPerMonth = msPerDay * 30;
+                    var msPerYear = msPerDay * 365;
+                    var elapsed = current - previous;
+
+                    var months = Math.round(elapsed/msPerMonth);
+                    if (months >= 1) {
+                        // Last interaction is one or more months old
+                        isOld =  true;
+                    } else {
+                        if (elapsed < msPerMonth) {
+                            var ms_days = Math.round(elapsed/msPerDay);
+                            if (ms_days >= 1) {
+                                // Last interaction is one or more day old
+                                isOld =  true;
+                            } else {
+                                if (elapsed < msPerHour) {
+                                    var ms_mints = Math.round(elapsed/msPerMinute);
+                                    if (ms_mints > 60) {
+                                        // Last interaction is 60 or more min old
+                                        isOld =  true;
+                                    }
+                                }
+
+                                if (!isOld && (elapsed < msPerDay)) {
+                                    var ms_hours = elapsed/msPerHour;
+                                    if (ms_hours >= 1) {
+                                        // Last interaction is one or more hour old
+                                        isOld =  true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return isOld;
+        }
+	},
+	localStorage: {
+		_lsc: null,
+		set: function(key, value){
+			localStorage.setItem(key, JSON.stringify(decodeURI(value.trim())));
+			var iframeURL = 'https://customs.affilired.com/' + 'ls.php?lsc_n=' +  encodeURI(key);
+			iframeURL += '&lsc_v=' + encodeURI(value);
+			AffUtils.localStorage.createIframe(iframeURL);
+		},
+		createIframe: function (location){
+			let iframe = document.createElement('iframe');
+			iframe.src = location;
+			iframe.width = '1';
+			iframe.height = '1';
+			iframe.style.display = 'none';
+			iframe.sandbox = 'allow-same-origin allow-scripts';
+			document.body.appendChild(iframe);
+		},
+		getOwn: function(){
+			window.addEventListener("message", function(event) {
+				if ('https://customs.affilired.com/'.indexOf(event.origin) === -1) {
+					return;
+				}
+				AffUtils.localStorage._lsc = event.data;
+			}, false);
+			AffUtils.localStorage.createIframe('https://customs.affilired.com/' + 'rls.php?m=3939');
+		}
+	},
+	Domain: {
+		/**
+		 * Extracts the complete hostName from a url
+		 *
+		 * @param url
+		 * @returns {null|*}
+		 */
+		getHostNameFromURL: function (url) {
+			var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+			if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+				return match[2];
+			} else {
+				return null;
+			}
+		},
+		/**
+		 * Gets the main domain without the subdomain from a string
+		 *
+		 * @param domain
+		 * @returns {*}
+		 */
+		getDomainWithoutSubdomainsFromDomain: function (domain) {
+			// http://rossscrivener.co.uk/blog/javascript-get-domain-exclude-subdomain
+			var i = 0;
+			var p = domain.split('.');
+			var s = '_gd' + (new Date()).getTime();
+			while (i < (p.length - 1) && document.cookie.indexOf(s + '=' + s) === -1) {
+				domain = p.slice(-1 - (++i)).join('.');
+				document.cookie = s + '=' + s + ';domain=' + domain + ';';
+			}
+			document.cookie = s + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=' + domain + ';';
+			return domain;
+		},
+		/**
+		 * Extracts the domain from a string (removes protocol, routes, etc)
+		 *
+		 * @param string
+		 * @returns {*}
+		 */
+		extractDomainFromString: function (string) {
+			var hostname;
+			//find & remove protocol (http, ftp, etc.) and get hostname
+			if (string.indexOf('//') > -1) {
+				hostname = string.split('/')[2];
+			} else {
+				hostname = string.split('/')[0];
+			}
+			//find & remove port number
+			hostname = hostname.split(':')[0];
+			//find & remove '?'
+			hostname = hostname.split('?')[0];
+			hostname = hostname.replace('www.', '');
+			return hostname;
+		},
+		/**
+		 * Checks if a domain is blackListed (social media)
+		 *
+		 * @param externalURL
+		 * @returns {boolean}
+		 */
+		inBlackList: function (externalURL) {
+			var blacklist = ['facebook.com', 'twitter.com', 'youtube.com', 'instagram.com', 'pinterest.com', 'pinterest.es', 'es.pinterest.com', 'vimeo.com', 'plus.google.com', 'linkedin.com', 'tripadvisor.com', 'amazonaws.com', 'oppwa.com', 'paypal.com', 'stripe.com', 'squareup.com', 'authorize.net', 'worldpay.com', 'skrill.com', 'adyen.com', 'braintreepayments.com', 'secure.checkout.visa.com', 'secure.checkout.mastercard.com', 'apple.com', 'google.com', 'microsoft.com', 'dropbox.com', 'box.com', 'slack.com', 'zoom.us', 'github.com', 'gitlab.com', 'bitbucket.org', 'digitalocean.com', 'heroku.com', 'cloudflare.com', 'paypalobjects.com', 'secure.payment.com', 'bankofamerica.com', 'wellsfargo.com', 'chase.com', 'citibank.com', 'americanexpress.com', 'discover.com', 'sandbox.paypal.com', 'stripe.com', 'sandbox.stripe.com', 'hackerone.com', 'bugcrowd.com', 'synack.com', 'tesla.com', 'uber.com', 'lyft.com', 'airbnb.com', 'booking.com', 'expedia.com', 'agoda.com', 'hotels.com', 'marriott.com', 'hilton.com'];
+			var domainURL = AffUtils.Domain.extractDomainFromString(externalURL.toLowerCase());
+			return (blacklist.indexOf(domainURL) > -1);
+		}
+	},
+	Event: {
+		eventWrapper: function (element, event, funct) {
+			try {
+				element.addEventListener ? element.addEventListener(event, funct) : element.attachEvent && element.attachEvent('on' + event, funct);
+			} catch (e) {
+				AffUtils.log('AffMLC exception:' + e.message, false);
+			}
+		},
+		wrap: function (object, method, wrapper) {
+			var fn = object[method];
+            return object[method] = function(){
+                if(arguments.length > 0){
+                    return wrapper.apply(this, [fn.bind(this)].concat(Array.prototype.slice.call(arguments)));
+                }else{
+                    return fn.apply();
+                }
+            };
+		},
+		unwrap: function (object, method, orginalFn) {
+			object[method] = orginalFn;
+		}
+	},
+	log: function (note, debug) {
+		if (debug) {
+			console.log(note);
+		}
+	},
+	group: function (groupName, debug) {
+		if (debug) {
+			console.group(groupName);
+		}
+	},
+	groupEnd: function (debug) {
+		if (debug) {
+			console.groupEnd();
+		}
+	},
+	isNotEmpty : function (value) {
+        return (typeof value !== 'undefined' && value !== null && value != '');
+    },
+	isEmpty : function (value) {
+        return (typeof value === 'undefined' || value === null || value == '');
+    },
+	isArrayNotEmpty : function (Arr) {
+        return  Array.isArray(Arr) && Arr.length > 0;
+    }
+};
+
+/****************************************************************************************************************
+* DENOMATIC PIXEL
+****************************************************************************************************************/
+function AffDenomaticPixel() {
+	if(aff_denomatic == null) {
+		var aff_denomatic = true;
+		/* Denomatic pixel */
+		! function() {
+			var x = document.createElement("script");
+			x.type = "text/javascript", x.async = !0, x.src = "https://cdn.denomatic.com/drs/72-d9cb286582b5.js?rnd=20190918";
+			var z = document.getElementsByTagName("head")[0];
+			if (z) z.appendChild(x, z);
+			else {
+				var z = document.getElementsByTagName("script")[0];
+				z.parentNode.insertBefore(x, z)
+			}
+		}();
+	}
+}
+AffDenomaticPixel();
+/****************************************************************************************************************
+* CROSSDEVICE PIXEL
+****************************************************************************************************************/
+function AffCrossDevicePixel() {
+	if (typeof aff_ACD === 'undefined') {
+		var aff_ACD = true;
+		/**************************************************
+ * aff_Sha256 HASH
+ ***************************************************/
+var aff_Sha256 = {};
+aff_Sha256.hash = function (msg, aff_Utf8encode) {
+    aff_Utf8encode = (typeof aff_Utf8encode == 'undefined') ? true : aff_Utf8encode;
+    if (aff_Utf8encode) msg = aff_Utf8.encode(msg);
+    var K = [
+        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+    ];
+    var H = [
+        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+    ];
+    msg += String.fromCharCode(0x80);
+    var l = msg.length / 4 + 2;
+    var N = Math.ceil(l / 16);
+    var M = new Array(N);
+    for (var i = 0; i < N; i++) {
+        M[i] = new Array(16);
+        for (var j = 0; j < 16; j++) {
+            M[i][j] = (msg.charCodeAt(i * 64 + j * 4) << 24) | (msg.charCodeAt(i * 64 + j * 4 + 1) << 16) | (msg.charCodeAt(i * 64 + j * 4 + 2) << 8) | (msg.charCodeAt(i * 64 + j * 4 + 3))
+        }
+    }
+    M[N - 1][14] = ((msg.length - 1) * 8) / Math.pow(2, 32);
+    M[N - 1][14] = Math.floor(M[N - 1][14]);
+    M[N - 1][15] = ((msg.length - 1) * 8) & 0xffffffff;
+    var W = new Array(64);
+    var a, b, c, d, e, f, g, h;
+    for (var i = 0; i < N; i++) {
+        for (var t = 0; t < 16; t++) W[t] = M[i][t];
+        for (var t = 16; t < 64; t++) W[t] = (aff_Sha256.sigma1(W[t - 2]) + W[t - 7] + aff_Sha256.sigma0(W[t - 15]) + W[t - 16]) & 0xffffffff;
+        a = H[0];
+        b = H[1];
+        c = H[2];
+        d = H[3];
+        e = H[4];
+        f = H[5];
+        g = H[6];
+        h = H[7];
+        for (var t = 0; t < 64; t++) {
+            var T1 = h + aff_Sha256.Sigma1(e) + aff_Sha256.Ch(e, f, g) + K[t] + W[t];
+            var T2 = aff_Sha256.Sigma0(a) + aff_Sha256.Maj(a, b, c);
+            h = g;
+            g = f;
+            f = e;
+            e = (d + T1) & 0xffffffff;
+            d = c;
+            c = b;
+            b = a;
+            a = (T1 + T2) & 0xffffffff
+        }
+        H[0] = (H[0] + a) & 0xffffffff;
+        H[1] = (H[1] + b) & 0xffffffff;
+        H[2] = (H[2] + c) & 0xffffffff;
+        H[3] = (H[3] + d) & 0xffffffff;
+        H[4] = (H[4] + e) & 0xffffffff;
+        H[5] = (H[5] + f) & 0xffffffff;
+        H[6] = (H[6] + g) & 0xffffffff;
+        H[7] = (H[7] + h) & 0xffffffff
+    }
+    return aff_Sha256.toHexStr(H[0]) + aff_Sha256.toHexStr(H[1]) + aff_Sha256.toHexStr(H[2]) + aff_Sha256.toHexStr(H[3]) + aff_Sha256.toHexStr(H[4]) + aff_Sha256.toHexStr(H[5]) + aff_Sha256.toHexStr(H[6]) + aff_Sha256.toHexStr(H[7])
+};
+aff_Sha256.ROTR = function (n, x) {
+    return (x >>> n) | (x << (32 - n))
+};
+aff_Sha256.Sigma0 = function (x) {
+    return aff_Sha256.ROTR(2, x) ^ aff_Sha256.ROTR(13, x) ^ aff_Sha256.ROTR(22, x)
+};
+aff_Sha256.Sigma1 = function (x) {
+    return aff_Sha256.ROTR(6, x) ^ aff_Sha256.ROTR(11, x) ^ aff_Sha256.ROTR(25, x)
+};
+aff_Sha256.sigma0 = function (x) {
+    return aff_Sha256.ROTR(7, x) ^ aff_Sha256.ROTR(18, x) ^ (x >>> 3)
+};
+aff_Sha256.sigma1 = function (x) {
+    return aff_Sha256.ROTR(17, x) ^ aff_Sha256.ROTR(19, x) ^ (x >>> 10)
+};
+aff_Sha256.Ch = function (x, y, z) {
+    return (x & y) ^ (~x & z)
+};
+aff_Sha256.Maj = function (x, y, z) {
+    return (x & y) ^ (x & z) ^ (y & z)
+};
+aff_Sha256.toHexStr = function (n) {
+    var s = "",
+        v;
+    for (var i = 7; i >= 0; i--) {
+        v = (n >>> (i * 4)) & 0xf;
+        s += v.toString(16)
+    }
+    return s
+};
+/**************************************************
+ * aff_Utf8 ENCODING
+ **************************************************/
+var aff_Utf8 = {};
+aff_Utf8.encode = function (strUni) {
+    var strUtf = strUni.replace(/[\u0080-\u07ff]/g, function (c) {
+        var cc = c.charCodeAt(0);
+        return String.fromCharCode(0xc0 | cc >> 6, 0x80 | cc & 0x3f)
+    });
+    strUtf = strUtf.replace(/[\u0800-\uffff]/g, function (c) {
+        var cc = c.charCodeAt(0);
+        return String.fromCharCode(0xe0 | cc >> 12, 0x80 | cc >> 6 & 0x3F, 0x80 | cc & 0x3f)
+    });
+    return strUtf
+};
+aff_Utf8.decode = function (strUtf) {
+    var strUni = strUtf.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g, function (c) {
+        var cc = ((c.charCodeAt(0) & 0x0f) << 12) | ((c.charCodeAt(1) & 0x3f) << 6) | (c.charCodeAt(2) & 0x3f);
+        return String.fromCharCode(cc)
+    });
+    strUni = strUni.replace(/[\u00c0-\u00df][\u0080-\u00bf]/g, function (c) {
+        var cc = (c.charCodeAt(0) & 0x1f) << 6 | c.charCodeAt(1) & 0x3f;
+        return String.fromCharCode(cc)
+    });
+    return strUni
+};
+/**************************************************
+ * AFFILIRED CROSS DEVICE TRACKING
+ **************************************************/
+var AffCD = AffCD || {};
+AffCD.InputIdentifiers = AffCD.InputIdentifiers || [];
+(function ($xd) {
+
+    $xd.currentInputs = 0;
+    $xd.hashedEmails = [];
+    $xd.blackListDomains = [];
+    $xd.blackListEmails = [];
+
+
+    /*
+     * Checking AutoCompleted fields
+     */
+    $xd.autoCompleteChecker = function (inputObject, callback) {
+        var lastValue = "";
+        var checkValue = function (inputObject) {
+            var value = inputObject.value;
+            if (value != lastValue) {
+                lastValue = value;
+                callback(lastValue);
+            }
+        };
+        setTimeout(function () {
+            checkValue(inputObject)
+        }, 2000);
+    };
+
+    /*
+     * Check if the input type is email or text
+     */
+    $xd.isObservedInput = function (inputObject) {
+        if (inputObject.type == 'email') {
+            return true;
+        }
+        if (inputObject.type != 'email' && inputObject.type != 'text') {
+            return false;
+        }
+        return (true); //Default case: We observe all input text fields
+    };
+
+    /*
+     * Log
+     */
+    $xd.log = function (note, stop) {
+        if (typeof window.affilireddebug !== 'undefined') {
+            console.log("AffACD debug: " + note);
+            if (stop) {
+                debugger;
+            }
+        }
+    };
+
+    /*
+     * Event Wrapper
+     */
+    $xd.eventWrapper = function (element, event, funct) {
+        try {
+            element.addEventListener ? element.addEventListener(event, funct) : element.attachEvent && element.attachEvent("on" + event, funct);
+        } catch (e) {
+            $xd.log("AffACD exception:" + e.message, false);
+        }
+    };
+
+    /*
+     * Attaching to inputs
+     */
+    $xd.attachToInputs = function () {
+        var inputs = document.getElementsByTagName('INPUT');
+        $xd.currentInputs = inputs.length;
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (!$xd.isObservedInput(input)) {
+                continue;
+            }
+            $xd.autoCompleteChecker(input, $xd.sendHash);
+	        $xd.eventWrapper(input, "change", $xd.onChange);
+            if (input.value != '') {
+                $xd.sendHash(input.value);
+            }
+        }
+        // Setting an interval every second to check if the number of fields have changed
+        setInterval(function () {
+            var inputs = document.getElementsByTagName('INPUT');
+            if ($xd.currentInputs != inputs.length) {
+                $xd.attachToInputs();
+            }
+        }, 1000);
+    };
+
+    /*
+     * Is the string a valid email address?
+     */
+    $xd.isEmailAddress = function (emailAddress) {
+        var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return emailPattern.test(emailAddress)
+    };
+
+    /*
+     * OnChange Event
+     */
+    $xd.onChange = function (event) {
+        var tarEl = event.target;
+        $xd.sendHash(tarEl.value);
+    };
+
+    /*
+     * Sending Hashed email
+     */
+    $xd.sendHash = function (emailAddress) {
+        emailAddress = emailAddress.trim();
+        if (!$xd.isEmailAddress(emailAddress)) {
+            return;
+        }
+        var _emailAddress = emailAddress.toLowerCase();
+        var _emailDomain = _emailAddress.replace(/.*@/, "");
+        if ($xd.blackListDomains.indexOf(_emailDomain) !== -1) {
+            //if domain is available in blacklisted domains list, we will not execute acd pixel
+            return;
+        }
+        var salt = 'DP7yHeCY3Ftjg5c6';
+        var hash = aff_Sha256.hash(_emailAddress + salt);
+        if ($xd.blackListEmails.indexOf(hash) !== -1) {
+            //if email hash is available in blacklisted emails hash list, we will not execute the acd pixel
+            return;
+        }
+        if ($xd.hashedEmails.indexOf(hash) === -1) {
+            $xd.pixelCall(hash);
+            $xd.hashedEmails.push(hash);
+        }
+    };
+
+    /*
+     * Pixel request
+     */
+    $xd.pixelCall = function (emailHash) {
+        /*
+         * Integration with Merchant Local Cookies Object
+         */
+        if (typeof AffMLC !== "undefined") { // Check if the Merchant Local Cookie is active for this merchant
+            var localc = AffMLC.getAffLocalCookie();
+            if (localc) {
+                /*
+                 * PROPOSAL OF NORMALIZED TPV / CLICK COOKIE FORMAT:
+                 * network | tracking_ref | affiliate_ref | affiliate_ref_old | referrer | cookieTime | acd_sale | clickId | device
+                 */
+                var splitted_data = localc.split("|");
+
+                var lc_network = splitted_data[0];
+                var lc_tracking_ref = splitted_data[1];
+                var lc_affiliate_ref = splitted_data[2];
+                var lc_affiliate_history = splitted_data[3];
+                var lc_referer = splitted_data[4];
+                var lc_stamp = splitted_data[5];
+                var lc_type = splitted_data[6]; // Cross device ?
+
+                var lc_clickid = splitted_data[7];
+                var lc_device = splitted_data[8];
+
+                var lc_history_string = lc_network + ':' + lc_affiliate_ref + ':' + lc_stamp;
+
+                lc_history_string += ':' + lc_type + ':' + lc_device;
+
+                if (lc_affiliate_history) {
+                    lc_history_string += ';' + lc_affiliate_history;
+                }
+            }
+        }
+
+        var merchant = AffCD.Merchant;
+        var src_url = 'https://scripts.affilired.com' + '/v2/acd.php?merchant=' + merchant + '&hash=' + emailHash;
+        var xhttp = new XMLHttpRequest();
+        xhttp.withCredentials = true;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // check if AffMLC is already loaded, as it can be loaded after ACD template
+                var response_json = this.response;
+                var decoded_response = JSON.parse(response_json);
+
+                if (decoded_response) {
+                    var cd_network = decoded_response['network'];
+                    var cd_tracking_ref = decoded_response['tracking_ref'];
+                    var cd_affiliate_ref = decoded_response['affiliate_ref'];
+                    var cd_affiliate_history = decoded_response['affiliate_history'];
+                    var cd_referer = decoded_response['referer'];
+                    var cd_stamp = decoded_response['stamp'];
+                    var cd_type = decoded_response['type'] == 'cross' ? 'X' : '';
+
+                    var cd_clickid = decoded_response['clickid'];
+                    var cd_device = decoded_response['device'];
+
+                    var cd_history_string = cd_network + ':' + cd_affiliate_ref + ':' + cd_stamp;
+
+                    cd_history_string += ':' + cd_type + ':' + cd_device;
+
+                    if (cd_affiliate_history) {
+                        cd_history_string += ';' + cd_affiliate_history;
+                    }
+
+                    if (typeof AffMLC !== "undefined") {
+                        /*
+                        * Useful functions:
+                        * $xd.setAffLocalCookie = function (network, tracking_ref, affiliate, funnel, referrer, clickTime, expires, domain)
+                        * $xd.getDomain
+                        */
+                        var merged_histories = null;
+                        var cookieExpiryTime = null;
+                        var network = null;
+                        var tracking_ref = null;
+                        var affiliate_ref = null;
+                        var referer = null;
+                        var stamp = null;
+
+                        var acd_sale = null;
+                        var clickid = null;
+                        var device = null;
+
+                        if (localc) { // lc cookie found and the merchant have the module active
+                            if (lc_stamp > cd_stamp) { // lc cookie wins
+                                merged_histories = $xd.mergeClicksHistory(lc_affiliate_history, cd_history_string);
+                                // reusing our expiry date of our lc
+                                cookieExpiryTime = parseInt(lc_stamp) + parseInt(AffMLC.COOKIELIFE);
+                                network = lc_network;
+                                tracking_ref = lc_tracking_ref;
+                                affiliate_ref = lc_affiliate_ref;
+                                referer = lc_referer;
+                                stamp = lc_stamp;
+
+                                acd_sale = lc_type;
+                                clickid = lc_clickid;
+                                device = lc_device;
+                            } else { // cd cookie wins
+                                merged_histories = $xd.mergeClicksHistory(lc_history_string, cd_affiliate_history);
+                                // reusing expiry date of our returned cookie
+                                cookieExpiryTime = parseInt(cd_stamp) + parseInt(AffMLC.COOKIELIFE);
+                                network = cd_network;
+                                tracking_ref = cd_tracking_ref;
+                                affiliate_ref = cd_affiliate_ref;
+                                referer = cd_referer;
+                                stamp = cd_stamp;
+
+                                acd_sale = cd_type;
+                                clickid = cd_clickid;
+                                device = cd_device;
+                            }
+                        } else { // no lc found but the merchant have the module active
+                            merged_histories = cd_affiliate_history;
+
+                            // new local cookie (not set before): we follow the standard procedure to set the expiry date
+                            cookieExpiryTime = parseInt(cd_stamp) + parseInt(AffMLC.COOKIELIFE);
+                            network = cd_network;
+                            tracking_ref = cd_tracking_ref;
+                            affiliate_ref = cd_affiliate_ref;
+                            referer = cd_referer;
+                            stamp = cd_stamp;
+
+                            acd_sale = cd_type;
+                            clickid = cd_clickid;
+                            device = cd_device;
+                        }
+
+                        var domain = AffMLC.getDomain();
+
+                        var auxData = new Date();
+                        auxData.setTime(cookieExpiryTime * 1000);
+                        var expiration_string = auxData.toUTCString();
+
+                        AffMLC.setAffLocalCookie(network, tracking_ref, affiliate_ref, merged_histories, referer, stamp, acd_sale, clickid, device, expiration_string, domain);
+                        /*
+                        * As we executed previously MLC, we need to delete the "executed" flag
+                        * and rerun the script, so as to get the contents inserted into the links
+                        */
+                        delete AffMLC.executed; // need to be tested on Internet Explorer and maybe other browsers
+                        AffMLC.init(merchant);
+                    }
+                }
+            }
+        };
+
+        xhttp.open("GET", src_url, true);
+        xhttp.send();
+    };
+
+    /**
+     * This function will merge the clicks history
+     * depending on their stamp dates
+     *
+     * @param history1
+     * @param history2
+     * @return string
+     */
+    $xd.mergeClicksHistory = function (history1, history2) {
+        history1 = history1.replace(/%3B/g, ";");
+        history2 = history2.replace(/%3B/g, ";");
+
+        var subhistory1 = history1.split(';');
+        var subhistory2 = history2.split(';');
+        var finaldata = [];
+        var finalhistory = '';
+
+        var keys = [];
+
+        subhistory2.forEach(
+            function (item, index) {
+                if (item) { // item exists and is not null either empty
+                    var details = item.split(':');
+                    /*
+                    * 0 -> NETWORK
+                    * 1 -> AFFILIATE_REF
+                    * 2 -> click stamp
+                    * 3 -> NEW: cross/empty
+                    * 4 -> NEW: device
+                    */
+
+                    // lets avoid duplicates
+                    if (!finaldata[details[2]]) {
+                        finaldata[details[2]] = [details[0],
+                            details[1],
+                            details[2],
+                            (details[3]) ? details[3] : '',
+                            (details[4]) ? details[4] : ''
+                        ];
+                        keys.push(details[2]);
+                    }
+                }
+            }
+        );
+
+        subhistory1.forEach(
+            function (item, index) {
+                if (item) { // item exists and is not null either empty
+                    var details = item.split(':');
+                    /*
+                    * 0 -> NETWORK
+                    * 1 -> AFFILIATE_REF
+                    * 2 -> click stamp
+                    * 3 -> NEW: cross/empty
+                    * 4 -> NEW: device
+                    */
+
+                    // lets avoid duplicates
+                    if (!finaldata[details[2]]) {
+                        finaldata[details[2]] = [details[0],
+                            details[1],
+                            details[2],
+                            (details[3]) ? details[3] : '',
+                            (details[4]) ? details[4] : ''
+                        ];
+                        keys.push(details[2]);
+                    }
+                }
+            }
+        );
+
+        keys.sort();
+        var len = keys.length;
+
+        for (i = 0; i < len - 1; i++) {
+            var k = keys[i];
+
+            if (finalhistory != '') {
+                finalhistory += ';';
+            }
+            finalhistory += finaldata[k].join(':');
+        }
+        return finalhistory;
+    };
+})(AffCD);
+
+
+		(function() {
+			try {
+				if(typeof AffCD !== 'undefined') {
+					AffCD.Merchant = 3939;
+					AffCD.attachToInputs();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		})();
+	}
+}
+AffCrossDevicePixel();
+
+
+
+/****************************************************************************************************************
+ * AFFILIRED MERCHANT LOCAL COOKIES EXPERIMENTAL MLC
+ ****************************************************************************************************************/
+var AffMLC = AffMLC || {};
+(function ($xd, cookieDays, injectParametersEnabled, debug, useDebugger, merchant) {
+	$xd.AffLocalCookieName = '';
+	// initialized in init, so it's not concatenating itself with ACD
+	$xd.COOKIELIFE = cookieDays * 24 * 60 * 60;
+	$xd.debug = debug;
+	$xd.useDebugger = useDebugger;
+	// Setting debugger also for the Utils
+	AffUtils.debug = debug;
+	// Option to inject the parameters on the External links
+	$xd.injectParametersEnabled = injectParametersEnabled;
+    $xd.merchantId = merchant;
+
+	/**
+	 * Retrieve the devide of the client
+	 *
+	 * @returns {number}
+	 */
+	$xd.getPlatformType = function () {
+		if (navigator.userAgent.match(/mobile/i)) {
+			// 'Mobile';
+			return 2;
+		} else if (navigator.userAgent.match(/iPad|Android|Touch/i)) {
+			// 'Tablet';
+			return 3;
+		} else if (navigator.userAgent.match(/tv/i)) {
+			// 'SmartTV';
+			return 4;
+		} else {
+			// 'Desktop';
+			return 1;
+		}
+	};
+
+	/**
+	 * Prepare the param to be propagated
+	 *
+	 * @param network
+	 * @param affiliate
+	 * @param remainingTime
+	 * @param tracking_reference
+	 * @param clickid
+	 * @param referrer
+	 * @returns {string}
+	 */
+	$xd.createPropagateParam = function (network, affiliate, remainingTime, tracking_reference, clickid, referrer) {
+		var propagate_param = '_affclk=' + network + ':' + affiliate + ':';
+		if (remainingTime != null) {
+			propagate_param += remainingTime;
+		}
+		propagate_param += ':';
+		if (tracking_reference != null) {
+			propagate_param += tracking_reference;
+		}
+		propagate_param += ':';
+		if (clickid != null) {
+			propagate_param += clickid;
+		}
+		propagate_param += ':';
+		if (referrer !== null && referrer !== '') {
+			propagate_param += referrer;
+		}
+		return propagate_param;
+	};
+
+	/**
+	 * Returns the Merchant Local Cookie
+	 *
+	 * @returns {string|null}
+	 */
+	$xd.getAffLocalCookie = function () {
+		var cookieValue = AffUtils.Cookie.get($xd.AffLocalCookieName);
+		if(cookieValue && cookieValue !== 'null'){
+			cookieValue = decodeURI(cookieValue)
+		}
+		return cookieValue;
+	};
+
+    /**
+     * Gets the main domain without the subdomain from a string
+     *
+     * @returns {*}
+     */
+    $xd.getDomain = function () {
+        var domain = document.domain;
+        return AffUtils.Domain.getDomainWithoutSubdomainsFromDomain(domain);
+    };
+
+	$xd.isPreviouslyCreatedLocalCookie = function () {
+		// We need to check if the cookie was already created using RevPr
+		// But only when we recieved the visit
+		var currentCookie = AffUtils.Cookie.get($xd.AffLocalCookieName)
+		if(currentCookie){
+			var explodedOldCookie = AffUtils.Cookie.extractCookieValue(currentCookie);
+			var consoleOldTimeStamp = explodedOldCookie[5] || 0;
+			var parameter = AffUtils.Link.getParameterValue('mlcAdded');
+			if(parameter){
+				parameter = parseInt(parameter);
+				consoleOldTimeStamp = parseInt(consoleOldTimeStamp);
+				if(consoleOldTimeStamp - parameter < 4){
+					// Less than 4 seconds
+					return true;
+				}
+			}
+		}
+		return false;
+	};
+
+	/**
+	 * Sets the Merchant Local Cookie
+	 *
+	 * @param network
+	 * @param tracking_ref
+	 * @param affiliate
+	 * @param funnel
+	 * @param referrer
+	 * @param clickTime
+	 * @param acd_sale
+	 * @param clickid
+	 * @param device
+	 * @param expires
+	 * @param domain
+	 */
+	$xd.setAffLocalCookie = function (
+		network, tracking_ref, affiliate, funnel, referrer, clickTime, acd_sale, clickid, device, expires, domain,
+		executedOnStartup
+	) {
+		if (tracking_ref == null) {
+			tracking_ref = '';
+		}
+		if (clickid == null) {
+			clickid = '';
+		}
+		/*
+		 * NORMALIZED COOKIE FORMAT:
+		 * network | tracking_ref | affiliate_ref | affiliate_ref_old | referrer | cookieTime | acd_sale | clickId | device
+		 *
+		 */
+		var content = network
+		content += '|' + tracking_ref;
+		content += '|' + affiliate;
+		content += '|' + funnel;
+		content += '|' + referrer;
+		content += '|' + clickTime;
+		content += '|' + acd_sale;
+		content += '|' + clickid;
+		content += '|' + device;
+
+
+		var createFirstPartyCookie = true;
+
+		if(executedOnStartup){
+			if(this.isPreviouslyCreatedLocalCookie()){
+				// If the cookie has been created previously we're going to
+				// replace the content var that is having the "new calculated cookie"
+				// instead we're going to add the value of the cookie previously created
+				content = AffUtils.Cookie.get($xd.AffLocalCookieName);
+				createFirstPartyCookie = false;
+			};
+		}
+
+		if(createFirstPartyCookie){
+			AffUtils.Cookie.set(
+				$xd.AffLocalCookieName,
+				content,
+				expires,
+				domain
+			);
+		}
+		if(content){
+			AffUtils.localStorage.set(
+				$xd.AffLocalCookieName,
+				content
+			);
+			AffUtils.Cookie.setPartitioned(content);
+		}
+	};
+
+	/**
+	 * Method that is going to inject on the links the MLC parameter to the external domains
+	 * This method will be attached to the click event
+	 *
+	 * @param event
+	 */
+	$xd.onClick = function (event) {
+		if ($xd.injectParametersEnabled) {
+			//Looking for the clicked Anchor
+			var tarEl = event.target;
+			while (tarEl.nodeName.toUpperCase() != 'A' && tarEl.parentElement) {
+				tarEl = tarEl.parentElement;
+			}
+
+			if (tarEl && tarEl.nodeName.toUpperCase() == 'A') {
+				if (AffUtils.Link.isLink(tarEl.href)) {
+					//Checking if it is a real link (avoiding javascript:, mailto:, tel:, etc)
+					if (AffUtils.Link.isExternalLink(tarEl.href)) {
+						//Is it an external link?
+						if (!AffUtils.Domain.inBlackList(tarEl.href)) {
+                            // refresh propagate params on onClick events
+                            $xd.setMLCPropagateParamUsingCookieData();
+
+                            //Checking if the external domain in black list
+							//Injecting the propagate parameters into the external link
+							var current_link = AffUtils.Link.injectParameters(
+									tarEl.href,
+									window._AffMLC_propagate_param,
+									'_affclk'
+							);
+							tarEl.href = current_link;
+							AffUtils.log(
+									'Click :: Added parameter to link ' + tarEl.href,
+									$xd.debug
+							);
+						}
+					}
+				}
+			}
+		}
+	};
+
+	/**
+	 * Method that is going to inject on the links the MLC parameter to the external domains
+	 * This method will be attached to the form with GET method
+	 *
+	 * @param event
+	 */
+	$xd.onSubmitTypeGET = function (event) {
+		// GET action
+		// validate AffMLC_propagate_param to avoid creating of _affclk input with
+		// null value and adding blank param in url
+		if (window._AffMLC_propagate_param != '') {
+            var inputAffElement = document.getElementsByName('_affclk')[0];
+            if (AffUtils.isNotEmpty(inputAffElement)) {
+                // if _affclk hidden input already exist
+                inputAffElement.value = window._AffMLC_propagate_param.replace('_affclk=', '');
+                AffUtils.log('Submit :: GET :: Updated hidden input', $xd.debug);
+            } else {
+                // create _affclk input and set value
+                var input = document.createElement('input');
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('name', '_affclk');
+                input.setAttribute(
+                        'value',
+                        window._AffMLC_propagate_param.replace('_affclk=', '')
+                );
+                event.srcElement.appendChild(input);
+                AffUtils.log('Submit :: GET :: Added hidden input', $xd.debug);
+            }
+		}
+	};
+
+	/**
+	 * Method that is going to inject on the links the MLC parameter to the external domains
+	 * This method will be attached to the form with POST method
+	 *
+	 * @param event
+	 * @param currentLink
+	 */
+	$xd.onSubmitTypePOST = function (event, currentLink) {
+		event.target.action = currentLink;
+		AffUtils.log(
+				'Submit :: POST :: Added propagation to url ' + event.target.action,
+				$xd.debug
+		);
+
+		/*
+		 * For those JS Apps that are preventing the submit with event.preventDefault();
+		 * we force the Submit now, as we are in the Top of the Event Buble chain.
+		 */
+		if (event.defaultPrevented == true) {
+			AffUtils.log('Submit :: POST :: Forcing Submit', $xd.debug);
+			event.target.submit();
+		}
+	}
+
+	/**
+	 * Event Listener for FORMSs submits (GET & POST)
+	 *
+	 * @param event
+	 */
+	$xd.onSubmit = function (event) {
+		if ($xd.injectParametersEnabled) {
+			if (typeof event.target.action !== 'undefined') {
+				if (event.target.action != '') {
+					if (AffUtils.Link.isLink(event.target.action)) {
+						//Checking if it is a real link (avoiding javascript:, mailto:, tel:, etc)
+						if (AffUtils.Link.isExternalLink(event.target.action)) {
+							// Is it an external link?
+							if (!AffUtils.Domain.inBlackList(event.target.action)) {
+                                // refresh propagate params on onClick events
+                                $xd.setMLCPropagateParamUsingCookieData();
+
+                                // Checking if the external domain in black list
+								//Injecting the propagate parameters into the external link
+								var current_link = AffUtils.Link.injectParameters(event.target.action, window._AffMLC_propagate_param, '_affclk');
+								if (event.target.method.toUpperCase() == 'GET') {
+									$xd.onSubmitTypeGET(event);
+								} else {
+									$xd.onSubmitTypePOST(event, current_link);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+
+	/************************************/
+	$xd.init = function () {
+        var merchantId = $xd.merchantId;
+        
+		if ($xd.useDebugger) {
+			debugger;
+		}
+
+		//To ensure the function is only fired once
+		if (typeof $xd.executed === 'undefined') {
+			$xd.executed = true;
+		} else {
+			return;
+		}
+
+		/*
+		 * We need that each Merchant Local Cookie has its own name, because of some merchants
+		 * can end the booking process in a shared booking engine.
+		 * Ex: merchant1.com has the booking process at bookingeengine.com
+		 * and merchant2.com has the booking process at bookingeengine.com too,
+		 * so we need 2 Merchant Local Cookies at bookingeengine.com to have different values
+		 */
+		$xd.AffLocalCookieName = '_afflrdmlc' + merchantId;
+
+		var network, affiliate, remainingTime, tracking_reference, clickid = null;
+		var referrer = ''
+
+		// no cdt from the begining
+		var acd_sale = '';
+
+		var cookieHistory = '';
+		var cookieExpiresDate = new Date();
+		var clickTime = Math.round(cookieExpiresDate / 1000);
+		var isDocReferrerAffclk = false;
+		var isCookieOneHourOld = false;
+
+		//Default Propagate param
+		window._AffMLC_propagate_param = '';
+
+		/*
+		 * Getting the _affclk parameter from the Location URL or from the Referrer URL
+		 */
+		var affClkReg = new RegExp("[?&]_affclk=([^&#]*)", "i");
+		var affClkString = affClkReg.exec(window.location.href);
+		if (!affClkString) {
+			affClkString = affClkReg.exec(document.referrer);
+			isDocReferrerAffclk = (AffUtils.isNotEmpty(affClkString)) ? true : false;
+		}
+		var affClkValue = affClkString ? affClkString[1] : undefined;
+
+		//Getting the Merchant Local Cookie (used later in any case)
+		var afflrdmlc = $xd.getAffLocalCookie();
+
+		var acd_cookie = '';
+		var device = $xd.getPlatformType();
+
+        var isCookieOneHourOld = (afflrdmlc && isDocReferrerAffclk) ? AffUtils.Cookie.isCookieOneHourOlder(afflrdmlc, 'mlc') : false;
+        var isAffClkValue = (!isDocReferrerAffclk && AffUtils.isNotEmpty(affClkValue)) ? true : false;         // cookie param available in url
+        var isDocRefClkValue = ((isDocReferrerAffclk && (!afflrdmlc || (afflrdmlc && isCookieOneHourOld))) && AffUtils.isNotEmpty(affClkValue)) ? true : false;      // cookie param available in referrer url
+
+        /*
+         * isAffClkValue: Getting the _affclk parameter from the Location URL
+         * isDocRefClkValue: Getting the _affclk parameter from the Referrer URL And If cookie exist should be one hour older
+         */
+        if (isAffClkValue || isDocRefClkValue) {
+			// Fixing any encoded character
+			affClkValue = decodeURIComponent(affClkValue);
+
+			/** Splitting the content from the QueryString parameter*/
+			var affClkValueData = affClkValue.split(':');
+			if (affClkValueData[0] !== undefined) {
+				network = affClkValueData[0];
+			}
+			if (affClkValueData[1] !== undefined) {
+				affiliate = affClkValueData[1];
+			}
+			if (affClkValueData[2] !== undefined) {
+				remainingTime = affClkValueData[2];
+				if (remainingTime == '') {
+					remainingTime = null; //COOKIELIFE;
+                    cookieExpiresDate.setTime(AffUtils.Cookie.getExpiryDateTime($xd.COOKIELIFE));
+				} else {
+                    cookieExpiresDate.setTime(AffUtils.Cookie.getExpiryDateTime(remainingTime));
+                    clickTime = AffUtils.Cookie.getCreatedDateTime($xd.COOKIELIFE, remainingTime);
+				}
+			} else {
+                cookieExpiresDate.setTime(AffUtils.Cookie.getExpiryDateTime($xd.COOKIELIFE));
+			}
+			if (affClkValueData[3] !== undefined) {
+				tracking_reference = affClkValueData[3];
+			}
+			if (affClkValueData[4] !== undefined) {
+				clickid = affClkValueData[4];
+			}
+			if (affClkValueData[5] !== undefined) {
+				referrer = affClkValueData[5];
+			}
+
+
+			/*
+			 * If we have the _affclk parameter we must:
+			 *  1.- Get the Local cookie
+			 *  2.- Create if it doesn't exist *
+			 *  3.- Update the content if already exists (update history + refresh network and affiliate) * ^
+			 *
+			 *  [*] If we have a remainingTime value, the cookie will have limited time, not a fill time life
+			 */
+
+			// If the Merchant Local Cookie exists
+			if (afflrdmlc !== null) {
+				/*
+				 * The Merchant Local Cookie ALREADY EXISTS
+				 *
+				 * Processing the Cookie Funnel / History = network:affiliate:cookietime[;oldHistory] ([0]:[2]:[5][;[3]])
+				 */
+				var afflrdmlcData = afflrdmlc.split('|');
+				//If remainingTime is null means that we are getting a new click
+				/*
+				 * NORMALIZED COOKIE FORMAT:
+				 * network | tracking_ref | affiliate_ref | affiliate_ref_old | referrer | cookieTime | acd_sale | clickId | device
+				 *
+				 */
+				/*
+				 * PROPOSAL OF NORMALIZED FUNNEL FORMAT:
+				 * network : affiliate_ref : interactionTime : affiliate_type : device
+				 *
+				 */
+				if (typeof afflrdmlcData[8] == 'undefined') {
+					afflrdmlcData[8] = 0;
+				}
+				if (remainingTime == null) {
+					cookieHistory = afflrdmlcData[0] + ':' + afflrdmlcData[2] + ':' + afflrdmlcData[5] + '::' + afflrdmlcData[8];
+					if (afflrdmlcData[3] != '') {
+						cookieHistory += (encodeURIComponent(';') + afflrdmlcData[3]);
+					}
+					cookieHistory = cookieHistory.substring(0, 2000); // Limiting the size of the history
+					remainingTime = $xd.COOKIELIFE; // Setting the remaining time to be propagated
+				} else if (remainingTime != null) {
+					//clickTime = afflrdmlcData[5];
+					cookieHistory = afflrdmlcData[3]; //Same history
+
+					//Checking if the network and affiliate have changed too
+					if (network != afflrdmlcData[0] || affiliate != afflrdmlcData[2]) {
+						cookieHistory = afflrdmlcData[0] + ':' + afflrdmlcData[2] + ':' + afflrdmlcData[5] + '::' + afflrdmlcData[8];
+						if (afflrdmlcData[3] != '') {
+							cookieHistory += (encodeURIComponent(';') + afflrdmlcData[3]);
+						}
+					}
+				}
+			}
+
+			/*
+			 * NORMALIZED COOKIE FORMAT:
+			 * network | tracking_ref | affiliate_ref | affiliate_ref_old | referrer | cookieTime | acd_sale | clickId | device
+			 *
+			 */
+
+			/* Create / Update the Merchant Local Cookie [setAffLocalCookie(network, tracking_ref = '', affiliate, funnel = '', referrer = '', cookieTime, expires, domain)] */
+			$xd.setAffLocalCookie(
+					network,
+					tracking_reference,
+					affiliate,
+					cookieHistory,
+					referrer,
+					clickTime,
+					acd_sale,
+					clickid,
+					device,
+					cookieExpiresDate.toUTCString(),
+					AffUtils.Domain.getDomainWithoutSubdomainsFromDomain(document.domain),
+					true
+			);
+
+			// Setting global variable to propagate parameters
+			window._AffMLC_propagate_param = $xd.createPropagateParam(network, affiliate, remainingTime, tracking_reference, clickid, referrer);
+		} else {
+            /*
+             * In case we don't have the '_affclk' parameter in the URL and referrer,
+             * we check if the local cookie '_afflrdmlc' cookie exists. If it exists we get the data from the local cookie
+             * to injectParameters() in the external links
+             */
+            $xd.setMLCPropagateParamUsingCookieData();
+		}
+
+		if (window._AffMLC_propagate_param.length > 0 && $xd.injectParametersEnabled) {
+			/*
+			 * Attaching to events
+			 */
+			AffUtils.Event.eventWrapper(document, 'click', $xd.onClick);
+			AffUtils.Event.eventWrapper(document, 'submit', $xd.onSubmit);
+			AffUtils.Event.wrap(window, 'open', function (orginalFn) {
+				var originalParams = Array.prototype.slice.call(arguments, 1);
+				if (AffUtils.Link.isLink(originalParams[0])) { //Checking if it is a real link (avoiding javascript:, mailto:, tel:, etc)
+					if (AffUtils.Link.isExternalLink(originalParams[0])) { //Is it an external link?
+						if (!AffUtils.Domain.inBlackList(originalParams[0])) { //Checking if the external domain in black list
+                            // refresh propagate params on onClick events
+                            $xd.setMLCPropagateParamUsingCookieData();
+
+                            //Injecting the propagate parameters into the external link
+							var current_link = AffUtils.Link.injectParameters(originalParams[0], window._AffMLC_propagate_param, '_affclk');
+							originalParams[0] = current_link;
+							AffUtils.log(
+									'Click :: Added parameter to window.open ' + originalParams[0],
+									$xd.debug
+							);
+						}
+					}
+				}
+				//Perform some logic
+				//Call the original window.open with the original params
+				orginalFn.apply(undefined, originalParams);
+			});
+		}
+	};
+
+    /**
+     * Re-Calculate Remaining time on events onclick,submit etc.
+     */
+    $xd.setMLCPropagateParamUsingCookieData = function () {
+        /*
+         * In case we don't have the '_affclk' parameter in the URL and referrer,
+         * we check if the local cookie '_afflrdmlc' cookie exists on a.com.
+         * If it exists we get the data from the local cookie to injectParameters() in the external links b.com
+         */
+        var afflrdmlc = $xd.getAffLocalCookie();
+        if (afflrdmlc !== null) {
+            var network, affiliate, remainingTime, tracking_reference, clickid = null;
+            var referrer = ''
+            var acd_sale = '';
+            var cookieHistory = '';
+
+            // Getting data from the cookie
+            var data = afflrdmlc.split('|');
+
+            /*
+             * NORMALIZED COOKIE FORMAT:
+				 * network | tracking_ref | affiliate_ref | affiliate_ref_old | referrer | cookieTime | acd_sale | clickId | device
+             *
+             */
+
+				// Network
+            network = data[0];
+
+				// Tracking Reference
+            tracking_reference = data[1];
+
+				// Affiliate Ref
+            affiliate = data[2];
+
+				// funnel
+            cookieHistory = data[3];
+
+            // referer
+            referrer = data[4];
+            if (referrer !== null) {
+                referrer = referrer.replace(/\./g, '_');    // replace dots with underscores
+            }
+
+            var cookieCreatedTime = data[5];
+            remainingTime = AffUtils.Cookie.getRemainingTime(cookieCreatedTime, $xd.COOKIELIFE);
+
+            acd_sale = data[6];
+
+            if (data[7] !== undefined) {
+                clickid = data[7];
+            }
+
+            // Setting global variable to propagate parameters
+            window._AffMLC_propagate_param = $xd.createPropagateParam(network, affiliate, remainingTime, tracking_reference, clickid, referrer);
+        }
+    }
+})(AffMLC, 30, true, false, false, 3939);
+
+function AffMerchantLocalCookiesInit() {
+    try {
+        if (typeof AffMLC !== 'undefined') {
+            if (document.readyState === "loading") {
+                document.addEventListener('DOMContentLoaded', function () {
+                    AffMLC.init();
+
+                    window.addEventListener("message", function(event) {
+                        if (event.origin !== 'https://customs.affilired.com/' + 'rls.php?merchant=3939') {
+                            return;
+                        }
+                    }, false);
+                    AffUtils.localStorage.createIframe('https://customs.affilired.com/' + 'rls.php?merchant=3939');
+
+                });
+            } else {
+                AffMLC.init();
+            }
+        }
+    } catch (e) {
+        console.log("AffMLC main exception :: " + e.message);
+    }
+}
+
+(function () {
+	AffMerchantLocalCookiesInit();
+})();
+
+AffOnChangeState = () => {
+try{	/** reload denomatic resources on history change*/
+	var aff_denomatic = false;
+	AffDenomaticPixel();
+	/** call ACD function on history change*/
+	delete aff_ACD;
+	AffCrossDevicePixel();
+	/** call localcookie function on history change*/
+	delete AffMLC.executed;
+	AffMerchantLocalCookiesInit();
+} catch (error) {}} 
+/**
+* Common script:
+* This script should be at end of the master tag
+* The following method will call on history state change
+* -On history change we are reloading Denomatic resources
+* -On history change we are reloading MLC/DEDUP/ACD functions inside onChangeState() method
+*/
+window.history.pushState = new Proxy(history.pushState, {
+	apply (target, thisArg, argList) {
+		const [state, title, url] = argList;
+
+		/*
+		* On history change add param to url
+		*/
+		argList = [state, title, url];
+		var output = target.apply(thisArg, argList);
+
+		/*
+		* This function will execute Denomatic resources
+		* and reload acd/dedup/mlc functions on history change
+		*/
+		AffOnChangeState();
+
+		return output;
+	},
+});
+} 
+

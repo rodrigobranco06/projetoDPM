@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="33px" height="33px"
+	 viewBox="0 0 33 33" enable-background="new 0 0 33 33" xml:space="preserve">
+<filter  x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+	<feMorphology  operator="dilate" in="SourceAlpha" result="shadowSpreadInner1" radius="1"></feMorphology>
+	<feOffset  dy="0" in="shadowSpreadInner1" result="shadowOffsetInner1" dx="0"></feOffset>
+	<feGaussianBlur  stdDeviation="0" in="shadowOffsetInner1" result="shadowBlurInner1"></feGaussianBlur>
+	<feComposite  operator="arithmetic" k3="1" in="shadowBlurInner1" in2="SourceAlpha" result="shadowInnerInner1" k2="-1">
+		</feComposite>
+	
+		<feColorMatrix  type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0851619112 0" in="shadowInnerInner1" result="shadowMatrixInner1">
+		</feColorMatrix>
+	<feMerge>
+		<feMergeNode  in="SourceGraphic"></feMergeNode>
+		<feMergeNode  in="shadowMatrixInner1"></feMergeNode>
+	</feMerge>
+</filter>
+<title>Untitled</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1" sketch:type="MSPage">
+	<g id="BR-Color" transform="translate(2.000000, 2.000000)" sketch:type="MSLayerGroup">
+		<g id="Mask" sketch:type="MSShapeGroup">
+			<circle id="path-1_1_" fill="#032A74" stroke="#CCCCCC" stroke-width="2" cx="14.5" cy="14.5" r="14.5"/>
+		</g>
+		<defs>
+			<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="-29.58" y="-17.98" width="90" height="65">
+				<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+			</filter>
+		</defs>
+		<mask maskUnits="userSpaceOnUse" x="-29.58" y="-17.98" width="90" height="65" id="mask-2">
+			<g filter="url(#Adobe_OpacityMaskFilter)">
+				<circle id="path-1" fill="#FFFFFF" cx="14.5" cy="14.5" r="14.5"/>
+			</g>
+		</mask>
+		<g id="BR-Copy" mask="url(#mask-2)">
+			<g transform="translate(-6.960000, -1.740000)">
+				<g id="background" sketch:type="MSShapeGroup" filter="url(#filter-3)">
+					<rect x="0" y="0" fill="#229F4A" width="45.239" height="32.48"/>
+				</g>
+				<defs>
+					<filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="8.662" y="6.496" width="26.438" height="19.488">
+						<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+					</filter>
+				</defs>
+				<mask maskUnits="userSpaceOnUse" x="8.662" y="6.496" width="26.438" height="19.488" id="mask-5">
+					<g filter="url(#Adobe_OpacityMaskFilter_1_)">
+						<rect id="path-4" x="0" y="0" fill="#FFFFFF" width="45.239" height="32.48"/>
+					</g>
+				</mask>
+				<g id="Group" sketch:type="MSLayerGroup" mask="url(#mask-5)">
+					<g transform="translate(8.120000, 5.800000)" sketch:type="MSShapeGroup">
+						<polygon id="polygon" fill="#F8E23D" points="13.762,0.696 26.981,10.44 13.762,20.184 0.542,10.44 						"/>
+						<ellipse id="circle" fill="#032A74" cx="13.762" cy="10.44" rx="6.169" ry="6.201"/>
+						<path id="circles" fill="#91A1C3" d="M11.118,13.097v1.772h1.763v-1.772H11.118L11.118,13.097z M14.643,13.097v1.772h1.764
+							v-1.772H14.643L14.643,13.097z"/>
+						<path id="line" fill="none" stroke="#C9D0E0" d="M9.355,7.783c0,0,3.99,0.706,6.867,1.945
+							c1.236,0.533,3.709,1.598,3.709,1.598"/>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
