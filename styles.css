@@ -1,16 +1,92 @@
+/*
+TITULOS COM FONT-SIZE 45PX
+TEXTO COM FONT-SIZE 25PX
+*/
 
-/* CONTACTOS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HEADER ====================================== */
+
+header {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: slategrey;
+    align-items: center;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+}
+
+header nav {
+    margin: 27px;
+    font-size: 20px;
+}
+
+header nav a{
+    text-decoration: none;
+}
+
+header ul {
+    list-style-type: none;
+}
+
+header ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: white;
+}
+
+header nav ul li a:hover {
+    color:lightblue;
+}
+
+/* INDEX ====================================== */
+
+.warning {
+    font-size: 35px;
+    color: red;
+    text-align: center;
+}
 
 
+/* CONTACTOS ====================================== */
 
+.contactos-loc_title {
+    padding: 50px;
+    text-align: center;
+    font-size: 45px;
+}
+
+.section_inicial {
+    display: flex;
+    padding: 50px;
+}
 .section_inicial .div_contacto_inicial img {
-    height: 500px; 
+    height: 600px; 
     padding-right: 50px;
+    
 }
 
 .section_inicial .div_contacto_inicial {
     display: flex;
-    margin: 50px;
+    font-size: 25px;
 }
+
+
 
 
