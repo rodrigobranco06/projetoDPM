@@ -1,0 +1,451 @@
+/*Quartos e apartamentos*/  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 115, 153, 0.1);
+    padding: 15px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    height: 65px;
+    box-shadow: 0 4px 15px rgba(0, 115, 153, 0.15);
+}
+
+/* Logo / Título do site */
+header h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+header h1 a {
+    color: #007399;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+header h1 a:hover {
+    color: #005f7a;
+}
+
+header h1 a::before {
+    content: "";
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    background-image:url(../img/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s ease; /* Changed transition property to transform */
+}
+header h1 a:hover::before {
+    transform: scale(1.1); /* Makes image slightly larger on hover */
+}
+
+header nav ul li {
+    position: relative;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 10px 5px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+header nav ul li a:hover {
+    color: #007399;
+}
+
+/* Efeito de linha sob o link */
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #007399;
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+header nav ul li a:hover::after, header nav ul li a.active::after {
+    width: 100%;
+}
+
+/* Destaque para a página atual */
+header nav ul li a.active {
+    color: #007399;
+}
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #007399;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #005f7a;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Estilos específicos para a página de quartos */
+/* Títulos com sublinhado azul como na imagem */
+.quartos-title {
+    padding: 50px 0 20px;
+    text-align: center;
+    font-size: 42px;
+    color: #007399;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.quartos-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #007399;
+}
+
+.destaque-hotel {
+    background-color: #007399;
+    color: white;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.info-destaque {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.info-destaque h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.info-destaque p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.tipos-apartamentos {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.tipos-apartamentos h2 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.selector-container {
+    display: flex;
+    justify-content: center;
+}
+
+.selector-box {
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.selector-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.selector-item:hover {
+    background-color: #f5f5f5;
+}
+
+.selector-item.selected {
+    background-color: #e6f7ff;
+    color: #007399;
+    font-weight: bold;
+}
+
+.check-mark {
+    color: #007399;
+    font-weight: bold;
+}
+
+.amenities {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+}
+
+.amenity-item {
+    padding: 8px 0;
+    color: #666;
+}
+
+.quarto-detalhe {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.quarto-imagem {
+    flex: 1;
+    position: relative;
+    margin-right: 40px;
+}
+
+.quarto-imagem img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.show-more {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.show-more:hover {
+    background-color: #f0f0f0;
+}
+
+.quarto-info {
+    flex: 1;
+}
+
+.quarto-info h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #007399;
+}
+
+.quarto-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.quarto-caracteristicas {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.caracteristica {
+    flex: 1;
+    min-width: 150px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.quarto-amenidades {
+    margin-bottom: 30px;
+}
+
+.quarto-amenidades h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #007399;
+}
+
+.quarto-amenidades ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quarto-amenidades li {
+    width: 50%;
+    padding: 8px 0;
+    position: relative;
+    padding-left: 25px;
+}
+
+.quarto-amenidades li:before {
+    content: "✓";
+    color: #007399;
+    position: absolute;
+    left: 0;
+}
+
+.reservar-btn {
+    display: inline-block;
+    background-color: #007399;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.reservar-btn:hover {
+    background-color: #005f7a;
+}
+
+.outros-quartos {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.outros-quartos h2 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quartos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.quarto-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.quarto-card:hover {
+    transform: translateY(-5px);
+}
+
+.quarto-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.quarto-card h3 {
+    font-size: 20px;
+    padding: 15px 20px 10px;
+    color: #007399;
+}
+
+.quarto-card p {
+    padding: 0 20px 15px;
+    color: #666;
+}
+
+.ver-mais {
+    display: block;
+    text-align: center;
+    background-color: #f5f5f5;
+    color: #007399;
+    text-decoration: none;
+    padding: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.ver-mais:hover {
+    background-color: #e6f7ff;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .quarto-detalhe {
+        flex-direction: column;
+    }
+    
+    .quarto-imagem {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+    }
+    
+    .quartos-title {
+        font-size: 32px;
+        padding: 30px;
+    }
+    
+    .quarto-amenidades li {
+        width: 100%;
+    }
+}
