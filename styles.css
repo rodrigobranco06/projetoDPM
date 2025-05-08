@@ -72,20 +72,66 @@ header nav ul li a:hover {
     font-size: 45px;
 }
 
-.section_inicial {
+.section-form-contacto {
     display: flex;
-    padding: 50px;
-}
-.section_inicial .div_contacto_inicial img {
-    height: 600px; 
-    padding-right: 50px;
-    
+    justify-content: center;
 }
 
-.section_inicial .div_contacto_inicial {
-    display: flex;
-    font-size: 25px;
+.div-form-contacto {
+    padding: 30px;
+    width: 600px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-right: 50px;
 }
+  
+form {
+    display: flex;
+    flex-direction: column;
+}
+  
+form input,  form textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  form button {
+    padding: 10px;
+    background-color: #007399;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #005f7a;
+  }
+
+.div-img-form-contacto {
+    width: 400px;
+}
+  
+/*
+  .contactos-loc_title {
+    padding: 50px;
+    text-align: center;
+    font-size: 45px;
+}
+  .info-contato {
+    margin-top: 30px;
+  }
+  
+  .mapa {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+
+*/
 
 
 
