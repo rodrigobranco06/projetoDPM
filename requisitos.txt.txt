@@ -1,18 +1,18 @@
-Página Inicial
+Página Inicial (Rodrigo)
 	- Apresentação do hotel com missão, fotos e vídeo promocional
 
-Página de reserva
+Página de reserva (Rodrigo)
 	- Formulario de reserva com escolha de datas, numero de hospedes e tipo de quarto
 
-Páginas dos quartos
+Páginas dos quartos (Tomas)
 	- Galeria de fotos, tipo de quarto e preços por noite
 
-Serviços
+Serviços (Tomas)
 	- Restaurante, ginásio e as informações sobre cada serviço
 
-Página de contacto
+Página de contacto (Rodrigo)
 	-Formulario de contacto, mapa de localização, telefones e e-mail, redes sociais
 
-Página de noticias
+Página de noticias (Tomas)
 	- Dicas, atualizações do hotel, etc
 
