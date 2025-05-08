@@ -1,0 +1,18 @@
+Página Inicial
+	- Apresentação do hotel com missão, fotos e vídeo promocional
+
+Página de reserva
+	- Formulario de reserva com escolha de datas, numero de hospedes e tipo de quarto
+
+Páginas dos quartos
+	- Galeria de fotos, tipo de quarto e preços por noite
+
+Serviços
+	- Restaurante, ginásio e as informações sobre cada serviço
+
+Página de contacto
+	-Formulario de contacto, mapa de localização, telefones e e-mail, redes sociais
+
+Página de noticias
+	- Dicas, atualizações do hotel, etc
+
