@@ -29,7 +29,6 @@ header {
     transition: all 0.3s ease;
 }
 
-/* Efeito de redução ao rolar (você pode adicionar JavaScript para isso) */
 header.scrolled {
     height: 65px;
     box-shadow: 0 4px 15px rgba(0, 115, 153, 0.15);
@@ -55,41 +54,20 @@ header h1 a:hover {
     color: #005f7a;
 }
 
-/* Pode adicionar um logo antes do texto */
 header h1 a::before {
     content: "";
     display: inline-block;
-    width: 35px;
-    height: 35px;
+    width: 80px;
+    height: 80px;
     margin-right: 10px;
-    background-color: #007399;
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 7h-8v7H3V5H1v15h2v-3h18v3h2V12c0-2.76-2.24-5-5-5zm2 8H5v-7h14c1.65 0 3 1.35 3 3v3c0 .55-.45 1-1 1z'%3E%3C/path%3E%3C/svg%3E");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 7h-8v7H3V5H1v15h2v-3h18v3h2V12c0-2.76-2.24-5-5-5zm2 8H5v-7h14c1.65 0 3 1.35 3 3v3c0 .55-.45 1-1 1z'%3E%3C/path%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    transition: background-color 0.3s ease;
+    background-image:url(../img/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s ease; /* Changed transition property to transform */
 }
-
 header h1 a:hover::before {
-    background-color: #005f7a;
-}
-
-/* Navegação */
-header nav {
-    display: flex;
-    align-items: center;
-}
-
-header nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 25px;
+    transform: scale(1.1); /* Makes image slightly larger on hover */
 }
 
 header nav ul li {
@@ -131,6 +109,25 @@ header nav ul li a:hover::after, header nav ul li a.active::after {
 header nav ul li a.active {
     color: #007399;
 }
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #007399;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #005f7a;
+}
 
 /* Main ====================================================================== */
 
@@ -155,7 +152,7 @@ header nav ul li a.active {
 }
 
 /* Layout da Seção de Contato */
-.section-form-contacto {
+.section-form-contacto, .section-info-contacto {
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -166,13 +163,32 @@ header nav ul li a.active {
 }
 
 /* Container do Formulário */
-.div-form-contacto {
+.div-form-contacto, .div-info-contato {
     flex: 1;
     padding: 40px;
     background-color: white;
     box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
     border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.div-form-contacto h1 {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 20px;
+    color: #007399;
+}
+
+.div-info-contato, .div-form-contacto p{
+    font-size: 18px;
+    color: #000000;
+}
+
+.div-info-contato h1 {
+    text-align: center;
+    color: #007399;
+    font-size: 30px;
+    padding-bottom: 20px;
 }
 
 .div-form-contacto:hover {
@@ -277,6 +293,8 @@ form button:active {
     transform: scale(1.05);
 }
 
+
+
 /* Responsividade */
 @media (max-width: 900px) {
     .section-form-contacto {
@@ -299,3 +317,112 @@ form button:active {
         padding: 40px 20px;
     }
 }
+
+
+/* Estilos para o componente do mapa */
+        gmp-map {
+            width: 100%;
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        gmp-map:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
+        }
+        
+        .div-maps-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            gap: 40px;
+        }
+        
+        .map-container {
+            flex: 1.5;
+        }
+        
+        .hotel-info {
+            flex: 1;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hotel-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
+        }
+        
+        .hotel-info h3 {
+            font-size: 26px;
+            color: #007399;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hotel-info h3::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #007399;
+            margin: 10px auto 0;
+            border-radius: 1.5px;
+        }
+        
+        .hotel-info address {
+            font-style: normal;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+        
+        .hotel-info p {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 28px;
+            text-align: center;
+        }
+        
+        .location-icon::before,
+        .phone-icon::before,
+        .email-icon::before {
+            position: absolute;
+            left: 0;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        
+        .location-icon::before {
+            content: "📍";
+        }
+        
+        .phone-icon::before {
+            content: "📞";
+        }
+        
+        .email-icon::before {
+            content: "📧";
+        }
+        
+        @media (max-width: 900px) {
+            .div-maps-container {
+                flex-direction: column;
+            }
+            
+            gmp-map {
+                height: 350px;
+                margin-bottom: 20px;
+            }
+        }
+  
+
+
+
