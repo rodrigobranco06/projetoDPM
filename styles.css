@@ -67,10 +67,10 @@ header h1 a::before {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: transform 0.3s ease; /* Changed transition property to transform */
+    transition: transform 0.3s ease;
 }
 header h1 a:hover::before {
-    transform: scale(1.1); /* Makes image slightly larger on hover */
+    transform: scale(1.1);
 }
 
 header nav ul li {
