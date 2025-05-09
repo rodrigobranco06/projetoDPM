@@ -63,7 +63,7 @@ header h1 a::before {
     width: 80px;
     height: 80px;
     margin-right: 10px;
-    background-image:url(../img/logo.png);
+    background-image:url(img/logo.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
