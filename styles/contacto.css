@@ -155,7 +155,7 @@ header nav ul li a.active {
 }
 
 /* Layout da Seção de Contato */
-.section-form-contacto {
+.section-form-contacto, .section-info-contacto {
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -166,13 +166,32 @@ header nav ul li a.active {
 }
 
 /* Container do Formulário */
-.div-form-contacto {
+.div-form-contacto, .div-info-contato {
     flex: 1;
     padding: 40px;
     background-color: white;
     box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
     border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.div-form-contacto h1 {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 20px;
+    color: #007399;
+}
+
+.div-info-contato, .div-form-contacto p{
+    font-size: 18px;
+    color: #000000;
+}
+
+.div-info-contato h1 {
+    text-align: center;
+    color: #007399;
+    font-size: 30px;
+    padding-bottom: 20px;
 }
 
 .div-form-contacto:hover {
@@ -276,6 +295,8 @@ form button:active {
 .div-img-form-contacto:hover img {
     transform: scale(1.05);
 }
+
+
 
 /* Responsividade */
 @media (max-width: 900px) {
