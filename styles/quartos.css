@@ -419,18 +419,6 @@ footer {
     background-color: #e6f7ff;
 }
 
-/* Responsividade */
-@media (max-width: 900px) {
-    .quarto-detalhe {
-        flex-direction: column;
-    }
-    
-    .quarto-imagem {
-        margin-right: 0;
-        margin-bottom: 30px;
-    }
-}
-
 @media (max-width: 600px) {
     header {
         flex-direction: column;
