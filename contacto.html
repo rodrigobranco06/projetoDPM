@@ -8,110 +8,7 @@
     <!-- Carregando a API do Google Maps com os novos componentes -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_9Jwtl1cS8IzuBoW9NbaxXQuGFs0de0c&callback=console.debug&libraries=maps,marker&v=beta">
     </script>
-    <style>
-        /* Estilos para o componente do mapa */
-        gmp-map {
-            width: 100%;
-            height: 450px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        gmp-map:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
-        }
-        
-        .div-maps-container {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto 80px;
-            padding: 0 20px;
-            gap: 40px;
-        }
-        
-        .map-container {
-            flex: 1.5;
-        }
-        
-        .hotel-info {
-            flex: 1;
-            padding: 40px;
-            background-color: white;
-            box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .hotel-info:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
-        }
-        
-        .hotel-info h3 {
-            font-size: 26px;
-            color: #007399;
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hotel-info h3::after {
-            content: "";
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: #007399;
-            margin: 10px auto 0;
-            border-radius: 1.5px;
-        }
-        
-        .hotel-info address {
-            font-style: normal;
-            line-height: 1.8;
-            font-size: 17px;
-        }
-        
-        .hotel-info p {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 28px;
-        }
-        
-        .location-icon::before,
-        .phone-icon::before,
-        .email-icon::before {
-            position: absolute;
-            left: 0;
-            font-family: sans-serif;
-            font-weight: bold;
-        }
-        
-        .location-icon::before {
-            content: "📍";
-        }
-        
-        .phone-icon::before {
-            content: "📞";
-        }
-        
-        .email-icon::before {
-            content: "📧";
-        }
-        
-        @media (max-width: 900px) {
-            .div-maps-container {
-                flex-direction: column;
-            }
-            
-            gmp-map {
-                height: 350px;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+    
 </head>
 <body>
     <header>
@@ -150,15 +47,6 @@
             </div>
         </section>
 
-        <!-- Seção de informações de contato -->
-        <section class="section-info-contacto">
-            <div class="div-info-contato">
-                <h1>Informações de contato</h1>
-                <p>📍 Complexo Andaluz – Moinho do Fau, Apartado 20, 2001-901 Santarém – Portugal</p>
-                <p>📞 +351 243 444 555</p>
-                <p>📧 geral@codesuite.com</p>
-            </div>
-        </section>
 
         <!-- Seção do mapa usando os componentes GMP -->
         <section class="section-mapa">
@@ -170,12 +58,12 @@
                     </gmp-map>
                 </div>
                 <div class="hotel-info">
-                    <h3>Nossa Localização</h3>
+                    <h3>Nossa Localização</h3><br>
                     <address>
                         <p><i class="location-icon"></i> Complexo Andaluz – Moinho do Fau</p>
                         <p>Apartado 20</p>
-                        <p>2001-901 Santarém, Portugal</p>
-                        <p><i class="phone-icon"></i> +351 243 444 555</p>
+                        <p>2001-901 Santarém, Portugal</p><br>
+                        <p><i class="phone-icon"></i> +351 243 444 555</p><br>
                         <p><i class="email-icon"></i> geral@codesuite.com</p>
                     </address>
                 </div>
