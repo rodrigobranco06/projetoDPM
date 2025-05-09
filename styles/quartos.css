@@ -246,10 +246,14 @@ footer {
     padding: 0 20px;
 }
 
+/* Solução para centralizar o botão "Mostrar mais Fotos" na imagem */
+
+/* Estilos do container da imagem */
 .quarto-imagem {
     flex: 1;
     position: relative;
     margin-right: 40px;
+    overflow: hidden; /* Para garantir que nada ultrapasse os limites */
 }
 
 .quarto-imagem img {
@@ -257,13 +261,20 @@ footer {
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease; /* Transição suave para efeito de hover */
 }
 
+/* Efeito de escurecimento ao passar o mouse */
+.quarto-imagem:hover img {
+    filter: brightness(0.7);
+}
+
+/* Botão centralizado na imagem */
 .show-more {
     position: absolute;
-    bottom: 30px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     background-color: white;
     border: none;
     padding: 12px 20px;
@@ -271,10 +282,26 @@ footer {
     border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 10;
+    transition: all 0.3s ease;
+    /* Opcionalmente, comece com o botão semi-transparente */
+    opacity: 0.9;
 }
 
+/* Efeito de hover */
 .show-more:hover {
-    background-color: #f0f0f0;
+    background-color: #007399;
+    color: white;
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+}
+
+/* Para dispositivos móveis, ajuste o posicionamento */
+@media (max-width: 768px) {
+    .quarto-imagem {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
 }
 
 .quarto-info {
@@ -381,6 +408,9 @@ footer {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform 0.3s;
+    margin-top: auto;
+    display:flex;
+    flex-direction: column;
 }
 
 .quarto-card:hover {
@@ -407,23 +437,28 @@ footer {
 .ver-mais {
     display: block;
     text-align: center;
-    background-color: #f5f5f5;
-    color: #007399;
+    background-color: #007399;
+    color: white;
     text-decoration: none;
     padding: 12px;
     font-weight: bold;
     transition: background-color 0.3s;
+    margin-top: auto; /* Empurra o botão para o fim do card */
 }
 
 .ver-mais:hover {
-    background-color: #e6f7ff;
+    background-color: #005f7a;
 }
 
-@media (max-width: 600px) {
-    header {
+
+@media (max-width: 768px) {
+    .quarto-detalhe {
         flex-direction: column;
     }
-    
+    .quarto-imagem {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
     nav ul {
         margin-top: 15px;
     }
