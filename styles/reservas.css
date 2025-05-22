@@ -9,13 +9,9 @@
 body {
     background-color: #f9f9f9;
     color: #333;
-    
 }
 
-
-/* Header ====================================================================== */
-
-/* Estilos para o Header */
+/* Header */
 header {
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 115, 153, 0.1);
@@ -25,7 +21,7 @@ header {
     z-index: 1000;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Já está alinhando verticalmente ao centro */
     height: 80px;
     transition: all 0.3s ease;
 }
@@ -35,10 +31,11 @@ header.scrolled {
     box-shadow: 0 4px 15px rgba(0, 115, 153, 0.15);
 }
 
-/* Logo / Título do site */
 header h1 {
     font-size: 28px;
     margin: 0;
+    display: flex;
+    align-items: center; /* Garante que o logo e o texto do h1 estejam centralizados verticalmente */
 }
 
 header h1 a {
@@ -61,14 +58,15 @@ header h1 a::before {
     width: 80px;
     height: 80px;
     margin-right: 10px;
-    background-image:url(../img/logo.png);
+    background-image: url(../img/logo.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: transform 0.3s ease; /* Changed transition property to transform */
+    transition: transform 0.3s ease;
 }
+
 header h1 a:hover::before {
-    transform: scale(1.1); /* Makes image slightly larger on hover */
+    transform: scale(1.1);
 }
 
 header nav ul li {
@@ -89,7 +87,6 @@ header nav ul li a:hover {
     color: #007399;
 }
 
-/* Efeito de linha sob o link */
 header nav ul li a::after {
     content: '';
     position: absolute;
@@ -106,17 +103,21 @@ header nav ul li a:hover::after, header nav ul li a.active::after {
     width: 100%;
 }
 
-/* Destaque para a página atual */
 header nav ul li a.active {
     color: #007399;
 }
+
 nav ul {
     display: flex;
     list-style: none;
+    align-items: center; /* Alinha os itens da lista verticalmente ao centro */
+    margin: 0; /* Remove margens para evitar desalinhamento */
 }
 
 nav ul li {
     margin-left: 20px;
+    display: flex;
+    align-items: center; /* Garante que cada item da lista esteja centralizado verticalmente */
 }
 
 nav ul li a {
@@ -130,7 +131,42 @@ nav ul li a:hover {
     color: #005f7a;
 }
 
-/* Titulo ==================================================================== */
+.li-reservar {
+    background-color: #005f7a;
+    padding: 4px 20px; /* Ajusta o padding para consistência */
+    border-radius: 4px; /* Adiciona borda arredondada para um visual mais suave */
+}
+
+.li-reservar a {
+    color: white;
+}
+
+.li-reservar a:hover {
+    color: white;
+}
+
+.li-reservar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Titulo */
 .reserva-title {
     padding: 50px 0 20px;
     text-align: center;
@@ -151,33 +187,16 @@ nav ul li a:hover {
     background-color: #007399;
 }
 
-
-/* Main ====================================================================== */
-
-
+/* Container de selecionar tipo de apartamento */
 .section-reserva .tipo-apartamento h2 {
     text-align: center;
     padding-bottom: 20px;
     color: black;
     font-size: 32px;
 }
-
-
-/* Container de selecionar tipo de apartamento =============================== */
-.tipos-apartamentos {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    padding: 0 20px;
-    
+.tipo-apartamento {
+    padding-bottom: 50px;
 }
-
-.tipos-apartamentos h2 {
-    font-size: 32px;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-
 
 .selector-container {
     display: flex;
@@ -210,4 +229,354 @@ nav ul li a:hover {
     background-color: #e6f7ff;
     color: #007399;
     font-weight: bold;
+}
+
+.check-mark {
+    color: #007399;
+    font-weight: bold;
+}
+
+/* Estilos para a seção quarto-detalhe */
+.quarto-detalhe {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    align-items: flex-start;
+}
+
+
+.quarto-imagem {
+    flex: 1;
+    position: relative;
+    margin-right: 40px;
+    overflow: hidden;
+}
+
+.quarto-imagem img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease; /* Transição suave para efeito de hover */
+
+}
+
+/* Efeito de escurecimento ao passar o mouse */
+.quarto-imagem:hover img {
+    filter: brightness(0.7);
+}
+
+.show-more {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 10;
+    transition: all 0.3s ease;
+    /* Opcionalmente, comece com o botão semi-transparente */
+    opacity: 0.9;
+    
+}
+
+.show-more:hover {
+    background-color: #f0f0f0;
+}
+
+.quarto-info {
+    flex: 1;
+}
+
+.quarto-info h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #007399;
+}
+
+.quarto-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.quarto-caracteristicas {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.caracteristica {
+    flex: 1;
+    min-width: 150px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.quarto-amenidades {
+    margin-bottom: 30px;
+}
+
+.quarto-amenidades h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #007399;
+}
+
+.quarto-amenidades ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quarto-amenidades li {
+    width: 50%;
+    padding: 8px 0;
+    position: relative;
+    padding-left: 25px;
+}
+
+.quarto-amenidades li:before {
+    content: "✓";
+    color: #007399;
+    position: absolute;
+    left: 0;
+}
+
+.reservar-btn {
+    display: inline-block;
+    background-color: #007399;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.reservar-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.reservar-btn:hover:not(:disabled) {
+    background-color: #005f7a;
+}
+
+/* Estilos para o date picker */
+.data-checkin {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.data-checkin h2 {
+    text-align: center;
+    padding-bottom: 20px;
+    color: black;
+    font-size: 32px;
+}
+
+.date-picker-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.date-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.date-input label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.date-input input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+    cursor: pointer;
+}
+
+.date-input input[type="date"]:focus {
+    outline: none;
+    border-color: #007399;
+    box-shadow: 0 0 5px rgba(0, 115, 153, 0.3);
+}
+
+/* Estilos para o preço */
+.price-display {
+    text-align: center;
+}
+
+.price-display h3 {
+    font-size: 24px;
+    color: #007399;
+    margin-bottom: 15px;
+}
+
+.price-display p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilos para o formulário de dados do cliente */
+.dados-cliente {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.div-form-dados-cliente {
+    flex: 1;
+    padding: 40px;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.div-form-dados-cliente:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
+}
+
+.div-form-dados-cliente h1 {
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 20px;
+    color: #007399;
+}
+
+.div-form-dados-cliente form {
+    display: flex;
+    flex-direction: column;
+}
+
+.div-form-dados-cliente form label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+    font-size: 16px;
+}
+
+.div-form-dados-cliente form input,
+.div-form-dados-cliente form textarea {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f8f9fa;
+}
+
+.div-form-dados-cliente form input:focus,
+.div-form-dados-cliente form textarea:focus {
+    outline: none;
+    border-color: #007399;
+    box-shadow: 0 0 0 3px rgba(0, 115, 153, 0.15);
+    background-color: #fff;
+}
+
+.div-form-dados-cliente form input::placeholder,
+.div-form-dados-cliente form textarea::placeholder {
+    color: #aaa;
+}
+
+.div-form-dados-cliente form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.div-form-dados-cliente form button {
+    padding: 14px;
+    background-color: #007399;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.div-form-dados-cliente form button:hover {
+    background-color: #005f7a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 115, 153, 0.3);
+}
+
+.div-form-dados-cliente form button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 115, 153, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+    }
+    
+    .reserva-title {
+        font-size: 32px;
+        padding: 30px;
+    }
+    
+    .quarto-detalhe {
+        flex-direction: column;
+    }
+    
+    .quarto-imagem {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .quarto-amenidades li {
+        width: 100%;
+    }
+
+    .date-picker-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .date-input {
+        width: 100%;
+        align-items: center;
+    }
+
+    .date-input input[type="date"] {
+        width: 100%;
+        max-width: 300px;
+    }
 }
