@@ -1,7 +1,5 @@
-// Script corrigido para a página de quartos do CodeSuite Hotel
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Script carregado com sucesso!");
-    
+
     // Dados dos apartamentos
     const apartamentosData = {
         "Apartamento": {
@@ -193,16 +191,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 botaoAntigo.remove();
             }
             
-            // CORREÇÃO: Criar e adicionar o novo botão "Mostrar mais Fotos"
+            // Criar novo botão "Mostrar mais Fotos"
             const quartoImagem = document.querySelector('.quarto-imagem');
             const novoBotao = document.createElement('button');
             novoBotao.className = 'show-more';
             novoBotao.textContent = 'Mostrar mais Fotos';
             quartoImagem.appendChild(novoBotao);
             
-            // Adicionar evento de clique ao botão
+            // ATUALIZAÇÃO: Redirecionar para galeria de fotos
             novoBotao.addEventListener('click', function() {
-                alert(`Galeria de fotos para: ${apartamentoInfo.titulo}`);
+                window.location.href = `galeria.html?tipo=${encodeURIComponent(tipoApartamento)}`;
             });
         } else {
             console.log("Tipo de apartamento não encontrado nos dados");
@@ -219,50 +217,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Adicionar evento de clique ao botão "Mostrar mais Fotos" inicial
+    // ATUALIZAÇÃO: Adicionar evento de clique ao botão "Mostrar mais Fotos" inicial
     const botaoInicial = document.querySelector('.show-more');
     if (botaoInicial) {
         botaoInicial.addEventListener('click', function() {
-            // CORREÇÃO: Verificar se existe um item selecionado antes de acessar
             const itemSelecionado = document.querySelector('.selector-item.selected');
             if (itemSelecionado) {
                 const tipoAtual = itemSelecionado.querySelector('span:not(.check-mark)').textContent;
-                const apartamentoAtual = apartamentosData[tipoAtual];
-                if (apartamentoAtual) {
-                    alert(`Galeria de fotos para: ${apartamentoAtual.titulo}`);
-                } else {
-                    alert('Galeria de fotos');
-                }
+                window.location.href = `galeria.html?tipo=${encodeURIComponent(tipoAtual)}`;
             } else {
-                alert('Galeria de fotos para: Apartamento Standard');
+                window.location.href = `galeria.html?tipo=${encodeURIComponent('Apartamento')}`;
             }
         });
     }
     
-    // Corrigir a funcionalidade dos cards "Ver Detalhes"
+    // Event listeners para os botões "Ver Detalhes" dos cards
     const verMaisBtns = document.querySelectorAll('.ver-mais');
     verMaisBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             
             // Obter título do apartamento do card
-            const cardTitle = this.parentElement.querySelector('h3').textContent;
+            const cardTitle = this.parentElement.querySelector('h3').textContent.trim();
             console.log("Título do card clicado:", cardTitle);
             
-            // Encontrar o botão correspondente no seletor e simular um clique
-            selectorItems.forEach(item => {
-                const itemText = item.querySelector('span').textContent;
-                // Verificar correspondência entre o título do card e o texto do item seletor
-                if (cardTitle.includes(itemText) || itemText.includes(cardTitle)) {
-                    console.log("Botão correspondente encontrado:", itemText);
-                    item.click();
-                    
-                    // Rolar para a seção de detalhes
-                    document.querySelector('.quarto-detalhe').scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
+            let tipoCorrespondente = null;
+            
+            if (cardTitle === "Apartamento Superior") {
+                tipoCorrespondente = "Apartamento Superior";
+            } else if (cardTitle === "Suite") {
+                tipoCorrespondente = "Suite";
+            } else if (cardTitle === "Apartamento Família") {
+                tipoCorrespondente = "Apartamento Família";
+            }
+            
+            if (tipoCorrespondente) {
+                console.log("Redirecionando para:", tipoCorrespondente);
+                
+                // Encontrar o botão correspondente no seletor e clicar
+                selectorItems.forEach(item => {
+                    const itemText = item.querySelector('span').textContent.trim();
+                    if (itemText === tipoCorrespondente) {
+                        item.click();
+                        
+                        // Rolar para a seção de detalhes
+                        document.querySelector('.quarto-detalhe').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
         });
     });
 });
