@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,6 @@
     <title>CodeSuite Hotel</title>
 </head>
 <body>
-    
     <header>
         <h1><a href="index.html">CodeSuite Hotel</a></h1>
         <nav>
@@ -15,32 +14,99 @@
                 <li><a href="contacto.html">Contactos</a></li>
                 <li><a href="imagens.html">Imagens</a></li>
                 <li><a href="quartos.html">Quartos</a></li>
-                <li><a href="reservas.html">Reservar</a></li>                
+                <li class="li-reservar"><a href="reservas.html">Reservar</a></li>
             </ul>
         </nav>
     </header>
-    
-    <main>     
 
-        <p class="warning">Em construção...</p>
+    <main>
+        <!-- Carrossel de imagens -->
+        <section class="hero-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="img/hotel/exterior1.jpg" alt="Exterior do CodeSuite Hotel">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/imagens_galeria/piscina.png" alt="Piscina do CodeSuite Hotel">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/imagens_galeria/pratos.png" alt="Restaurante do CodeSuite Hotel">
+                </div>
+                <div class="carousel-overlay">
+                    <h2>CodeSuite Hotel</h2>
+                    <p>Bem-vindo ao seu refúgio de luxo!</p>
+                </div>
+            </div>
+            <button class="carousel-prev">❮</button>
+            <button class="carousel-next">❯</button>
+        </section>
 
-        <h2>Site para um hotel:</h2>
-    
-        <h3>Requisitos</h2>
-    
-        <ul>
-            <li>Quartos com preços</li>
-            <li>Localização</li>
-            <li>Contactos</li>
-            <li>Formulario de reserva visual</li>
-            <li>Serviços</li>
-            <li>Imagens</li>
-            <li>Testemunhos</li>
-        </ul>
+        <!-- Seção de Quartos -->
+        <section class="quartos-preview">
+            <h2>Nossos Quartos</h2>
+            <div class="quartos-grid">
+                <div class="quarto-card">
+                    <img src="img/quartos/apartamento1.png" alt="Apartamento Standard">
+                    <h3>Apartamento Standard</h3>
+                    <p>Conforto e praticidade com vista para os jardins ou piscina.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Mais</a>
+                </div>
+                <div class="quarto-card">
+                    <img src="img/quartos/apartamentoSuperior.png" alt="Apartamento Superior">
+                    <h3>Apartamento Superior</h3>
+                    <p>Mais espaço e vista privilegiada para o mar.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Mais</a>
+                </div>
+                <div class="quarto-card">
+                    <img src="img/quartos/suite1.png" alt="Suite">
+                    <h3>Suite</h3>
+                    <p>Luxo com sala de estar separada e vistas deslumbrantes.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Mais</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Testemunhos -->
+        <section class="testemunhos">
+            <h2>O que dizem nossos hóspedes</h2>
+            <div class="testemunhos-grid">
+                <div class="testemunho-card">
+                    <p>"Uma experiência inesquecível! O quarto era espaçoso e a vista para o mar era incrível."</p>
+                    <h4>Ana Silva</h4>
+                    <span>Dezembro 2024</span>
+                </div>
+                <div class="testemunho-card">
+                    <p>"O atendimento foi excepcional e a comida do restaurante estava deliciosa!"</p>
+                    <h4>João Pereira</h4>
+                    <span>Janeiro 2025</span>
+                </div>
+                <div class="testemunho-card">
+                    <p>"Perfeito para famílias! Meus filhos adoraram a piscina e o espaço familiar."</p>
+                    <h4>Maria Costa</h4>
+                    <span>Fevereiro 2025</span>
+                </div>
+            </div>
+
+            <!-- Formulário de Testemunho -->
+            <div class="testemunho-form">
+                <h3>Deixe seu Testemunho</h3>
+                <form>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                    <label for="data">Data da Estadia:</label>
+                    <input type="date" id="data" name="data" required>
+                    <label for="testemunho">Seu Testemunho:</label>
+                    <textarea id="testemunho" name="testemunho" placeholder="Escreva sua experiência..." required></textarea>
+                    <button type="submit" class="submit-btn">Enviar Testemunho</button>
+                </form>
+            </div>
+        </section>
     </main>
 
-    
-    
-    
+    <footer>
+        <p>© 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="index.js"></script>
 </body>
 </html>
