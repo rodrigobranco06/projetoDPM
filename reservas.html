@@ -1,13 +1,160 @@
-document.addEventListener('DOMContentLoaded', function() {
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSuite Hotel - Reservas</title>
+    <link rel="stylesheet" href="styles/reservas.css">
+</head>
+<body>
+    
+    <header>
+        <h1><a href="index.html">CodeSuite Hotel</a></h1>
+        <nav>
+            <ul>
+                <li><a href="contacto.html">Contactos</a></li>
+                <li><a href="imagens.html">Imagens</a></li>
+                <li><a href="quartos.html">Quartos</a></li>
+                <li class="li-reservar"><a href="reservas.html">Reservar</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <h1 class="reserva-title">Reservar Estadia</h1>
+        
+    <main>
+        <section class="section-reserva">
+            <div class="tipo-apartamento">
+                <h2>Que apartamento gostaria de reservar?</h2>
+            
+                <div class="selector-container">
+                    <div class="selector-box">
+                        <div class="selector-item selected">
+                            <span>Apartamento</span>
+                            <span class="check-mark">✓</span>
+                        </div>
+                        <div class="selector-item">
+                            <span>Apartamento Superior</span>
+                        </div>
+                        <div class="selector-item">
+                            <span>Apartamento com sofá</span>
+                        </div>
+                        <div class="selector-item">
+                            <span>Apartamento Família</span>
+                        </div>
+                        <div class="selector-item">
+                            <span>Suite</span>
+                        </div>
+                        <div class="selector-item">
+                            <span>Suite Familiar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quarto-detalhe">
+                <div class="quarto-imagem">
+                    <img src="img/quartos/apartamento1.png" alt="Apartamento Standard">
+                    <button class="show-more">Mostrar mais Fotos</button>
+                </div>
+                <div class="quarto-info">
+                    <h3>Apartamento Standard</h3>
+                    <p>Os nossos apartamentos standard oferecem todo o conforto para a sua estadia. Equipados com duas camas de solteiro ou uma cama de casal, TV de tela plana, ar-condicionado e uma varanda com vista para os jardins ou piscina.</p>
+                    
+                    <div class="quarto-caracteristicas">
+                        <div class="caracteristica">
+                            <span class="icon">👥</span>
+                            <span>Capacidade: 2 adultos</span>
+                        </div>
+                        <div class="caracteristica">
+                            <span class="icon">📏</span>
+                            <span>Tamanho: 28m²</span>
+                        </div>
+                        <div class="caracteristica">
+                            <span class="icon">🛏️</span>
+                            <span>Camas: 2 individuais ou 1 casal</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quarto-amenidades">
+                        <h4>Serviços do quarto</h4>
+                        <ul>
+                            <li>Ar-condicionado</li>
+                            <li>TV por cabo</li>
+                            <li>Wi-Fi gratuito</li>
+                            <li>Frigorifico</li>
+                            <li>Varanda privada</li>
+                            <li>Casa de banho privada com duche</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="data-checkin">
+                <h2>Selecione a Data de CheckIn e CheckOut</h2>
+                <div class="date-picker-container">
+                    <div class="date-input">
+                        <label for="checkin">Data de Check-In:</label>
+                        <input type="date" id="checkin" name="checkin" required>
+                    </div>
+                    <div class="date-input">
+                        <label for="checkout">Data de Check-Out:</label>
+                        <input type="date" id="checkout" name="checkout" required>
+                    </div>
+                </div>
+                <div class="price-display" id="price-display">
+                    <h3>Preço Estimado</h3>
+                    <p id="price-text">Selecione as datas para ver o preço.</p>
+                </div>
+            </div>
+
+            <div class="dados-cliente">
+                <div class="div-form-dados-cliente">
+                    <h1>Faça agora a sua reserva</h1>
+                    <form>
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" placeholder="Seu nome" required>
+
+                        <label for="nome">Numero telemóvel:</label>
+                        <input type="integer" id="ntelef" placeholder="Seu número de telemóvel" required>
+
+                        <label for="nome">Numero Cartão Cidadão:</label>
+                        <input type="integer" id="ncartaocidadao" placeholder="Seu número de cartão de cidadão" required>
+        
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+        
+                        <label for="mensagem">Mensagem (opcional):</label>
+                        <textarea id="mensagem" rows="5" placeholder="Escreva sua mensagem aqui..." ></textarea>
+        
+                        <button type="submit">Confirmar Reserva</button>
+                    </form>
+                </div>
+            </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Script corrigido para a página de quartos do CodeSuite Hotel
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Script carregado com sucesso!");
+    
     // Dados dos apartamentos
     const apartamentosData = {
         "Apartamento": {
             titulo: "Apartamento Standard",
-            descricao: "Os nossos apartamentos standard oferecem todo o conforto para a sua estadia. Equipados com 1 cama de solteiro e 1 cama de casal, TV de tela plana, ar-condicionado e uma varanda com vista para os jardins ou piscina.",
-            capacidade: "2 adultos e 1 criança",
-            tamanho: "35m²",
-            camas: "1 cama de casal e 1 cama individual",
+            descricao: "Os nossos apartamentos standard oferecem todo o conforto para a sua estadia. Equipados com duas camas de solteiro ou uma cama de casal, TV de tela plana, ar-condicionado e uma varanda com vista para os jardins ou piscina.",
+            capacidade: "2 adultos",
+            tamanho: "28m²",
+            camas: "2 individuais ou 1 casal",
             imagem: "img/quartos/apartamento1.png",
             amenidades: [
                 "Ar-condicionado",
@@ -21,9 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento Superior": {
             titulo: "Apartamento Superior",
             descricao: "Os nossos apartamentos superiores oferecem uma experiência mais luxuosa com vista privilegiada para o mar. Maior espaço e decoração moderna para maximizar o seu conforto durante a estadia.",
-            capacidade: "2 adultos e 1 criança",
+            capacidade: "2 adultos e 2 crianças",
             tamanho: "35m²",
-            camas: "1 cama de casal e 1 individual",
+            camas: "2 camas de casal",
             imagem: "img/quartos/apartamentoSuperior.png",
             amenidades: [
                 "Ar-condicionado",
@@ -39,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento com sofá": {
             titulo: "Apartamento com Sofá",
             descricao: "Perfeito para relaxar, este apartamento inclui uma área de estar com sofá confortável, ideal para momentos de descanso após um dia de exploração.",
-            capacidade: "2 adultos e 2 crianças",
-            tamanho: "35m²",
+            capacidade: "2 adultos e 1 criança",
+            tamanho: "32m²",
             camas: "1 cama de casal, 1 cama individual e 1 sofá-cama",
             imagem: "img/quartos/apartamentoSofa.png",
             amenidades: [
@@ -59,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
             descricao: "Ideal para famílias, este apartamento espaçoso oferece áreas separadas para pais e crianças, garantindo conforto para toda a família durante a estadia.",
             capacidade: "2 adultos e 2 crianças",
             tamanho: "42m²",
-            camas: "2 camas de casal",
+            camas: "1 cama de casal e 2 camas individuais",
             imagem: "img/quartos/familia1.png",
             amenidades: [
                 "Ar-condicionado em todas as áreas",
@@ -78,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             descricao: "Experimente o luxo nas nossas suites com sala de estar separada. Decoração elegante, mobiliário premium e vistas deslumbrantes para uma estadia inesquecível.",
             capacidade: "2 adultos",
             tamanho: "45m²",
-            camas: "1 cama de casal",
+            camas: "1 cama King size",
             imagem: "img/quartos/suite1.png",
             amenidades: [
                 "Ar-condicionado",
@@ -96,9 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "Suite Familiar": {
             titulo: "Suite Familiar",
             descricao: "O máximo em conforto para famílias, com quarto principal, quarto para crianças e sala de estar. O espaço perfeito para férias familiares memoráveis.",
-            capacidade: "2 adultos e 2 crianças",
+            capacidade: "2 adultos e 3 crianças",
             tamanho: "65m²",
-            camas: "1 cama de casal e 2 camas individuais",
+            camas: "1 cama King size e 3 camas individuais",
             imagem: "img/quartos/suiteFamiliar1.png",
             amenidades: [
                 "Ar-condicionado em todas as áreas",
@@ -191,16 +338,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 botaoAntigo.remove();
             }
             
-            // Criar novo botão "Mostrar mais Fotos"
+            // CORREÇÃO: Criar e adicionar o novo botão "Mostrar mais Fotos"
             const quartoImagem = document.querySelector('.quarto-imagem');
             const novoBotao = document.createElement('button');
             novoBotao.className = 'show-more';
             novoBotao.textContent = 'Mostrar mais Fotos';
             quartoImagem.appendChild(novoBotao);
             
-            // ATUALIZAÇÃO: Redirecionar para galeria de fotos
+            // Adicionar evento de clique ao botão
             novoBotao.addEventListener('click', function() {
-                window.location.href = `galeria.html?tipo=${encodeURIComponent(tipoApartamento)}`;
+                alert(`Galeria de fotos para: ${apartamentoInfo.titulo}`);
             });
         } else {
             console.log("Tipo de apartamento não encontrado nos dados");
@@ -217,56 +364,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ATUALIZAÇÃO: Adicionar evento de clique ao botão "Mostrar mais Fotos" inicial
+    // Adicionar evento de clique ao botão "Mostrar mais Fotos" inicial
     const botaoInicial = document.querySelector('.show-more');
     if (botaoInicial) {
         botaoInicial.addEventListener('click', function() {
+            // CORREÇÃO: Verificar se existe um item selecionado antes de acessar
             const itemSelecionado = document.querySelector('.selector-item.selected');
             if (itemSelecionado) {
                 const tipoAtual = itemSelecionado.querySelector('span:not(.check-mark)').textContent;
-                window.location.href = `galeria.html?tipo=${encodeURIComponent(tipoAtual)}`;
+                const apartamentoAtual = apartamentosData[tipoAtual];
+                if (apartamentoAtual) {
+                    alert(`Galeria de fotos para: ${apartamentoAtual.titulo}`);
+                } else {
+                    alert('Galeria de fotos');
+                }
             } else {
-                window.location.href = `galeria.html?tipo=${encodeURIComponent('Apartamento')}`;
+                alert('Galeria de fotos para: Apartamento Standard');
             }
         });
     }
     
-    // Event listeners para os botões "Ver Detalhes" dos cards
+    // Corrigir a funcionalidade dos cards "Ver Detalhes"
     const verMaisBtns = document.querySelectorAll('.ver-mais');
     verMaisBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             
             // Obter título do apartamento do card
-            const cardTitle = this.parentElement.querySelector('h3').textContent.trim();
+            const cardTitle = this.parentElement.querySelector('h3').textContent;
             console.log("Título do card clicado:", cardTitle);
             
-            let tipoCorrespondente = null;
-            
-            if (cardTitle === "Apartamento Superior") {
-                tipoCorrespondente = "Apartamento Superior";
-            } else if (cardTitle === "Suite") {
-                tipoCorrespondente = "Suite";
-            } else if (cardTitle === "Apartamento Família") {
-                tipoCorrespondente = "Apartamento Família";
-            }
-            
-            if (tipoCorrespondente) {
-                console.log("Redirecionando para:", tipoCorrespondente);
-                
-                // Encontrar o botão correspondente no seletor e clicar
-                selectorItems.forEach(item => {
-                    const itemText = item.querySelector('span').textContent.trim();
-                    if (itemText === tipoCorrespondente) {
-                        item.click();
-                        
-                        // Rolar para a seção de detalhes
-                        document.querySelector('.quarto-detalhe').scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            }
+            // Encontrar o botão correspondente no seletor e simular um clique
+            selectorItems.forEach(item => {
+                const itemText = item.querySelector('span').textContent;
+                // Verificar correspondência entre o título do card e o texto do item seletor
+                if (cardTitle.includes(itemText) || itemText.includes(cardTitle)) {
+                    console.log("Botão correspondente encontrado:", itemText);
+                    item.click();
+                    
+                    // Rolar para a seção de detalhes
+                    document.querySelector('.quarto-detalhe').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     });
 });
+    </script>
+</body>
+</html>
