@@ -36,5 +36,5 @@ O site atende aos seguintes requisitos:
 - **GitHub Pages**: Hospedagem do site.
 
 ## QR Code para o Repositório
-![QR Code para o repositório GitHub](/img/qr-code.png)
+![qr-code](https://github.com/user-attachments/assets/49e4daeb-4179-49d7-ae05-5004f3d9f6cf)
 
