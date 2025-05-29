@@ -226,15 +226,6 @@ footer {
     font-weight: bold;
 }
 
-.amenities {
-    padding: 15px 20px;
-    background-color: #f9f9f9;
-}
-
-.amenity-item {
-    padding: 8px 0;
-    color: #666;
-}
 
 .quarto-detalhe {
     display: flex;

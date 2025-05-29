@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const apartamentosData = {
         "Apartamento": {
             titulo: "Apartamento Standard",
-            descricao: "Os nossos apartamentos standard oferecem todo o conforto para a sua estadia. Equipados com duas camas de solteiro ou uma cama de casal, TV de tela plana, ar-condicionado e uma varanda com vista para os jardins ou piscina.",
-            capacidade: "2 adultos",
-            tamanho: "28m²",
-            camas: "2 individuais ou 1 casal",
+            descricao: "Os nossos apartamentos standard oferecem todo o conforto para a sua estadia. Equipados com 1 cama de solteiro e 1 cama de casal, TV de tela plana, ar-condicionado e uma varanda com vista para os jardins ou piscina.",
+            capacidade: "2 adultos e 1 criança",
+            tamanho: "35m²",
+            camas: "1 cama de casal e 1 cama individual",
             imagem: "img/quartos/apartamento1.png",
             amenidades: [
                 "Ar-condicionado",
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento Superior": {
             titulo: "Apartamento Superior",
             descricao: "Os nossos apartamentos superiores oferecem uma experiência mais luxuosa com vista privilegiada para o mar. Maior espaço e decoração moderna para maximizar o seu conforto durante a estadia.",
-            capacidade: "2 adultos e 2 crianças",
+            capacidade: "2 adultos e 1 criança",
             tamanho: "35m²",
-            camas: "2 camas de casal",
+            camas: "1 cama de casal e 1 individual",
             imagem: "img/quartos/apartamentoSuperior.png",
             amenidades: [
                 "Ar-condicionado",
@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento com sofá": {
             titulo: "Apartamento com Sofá",
             descricao: "Perfeito para relaxar, este apartamento inclui uma área de estar com sofá confortável, ideal para momentos de descanso após um dia de exploração.",
-            capacidade: "2 adultos e 1 criança",
-            tamanho: "32m²",
+            capacidade: "2 adultos e 2 crianças",
+            tamanho: "35m²",
             camas: "1 cama de casal, 1 cama individual e 1 sofá-cama",
             imagem: "img/quartos/apartamentoSofa.png",
             amenidades: [
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             descricao: "Ideal para famílias, este apartamento espaçoso oferece áreas separadas para pais e crianças, garantindo conforto para toda a família durante a estadia.",
             capacidade: "2 adultos e 2 crianças",
             tamanho: "42m²",
-            camas: "1 cama de casal e 2 camas individuais",
+            camas: "2 camas de casal",
             imagem: "img/quartos/familia1.png",
             amenidades: [
                 "Ar-condicionado em todas as áreas",
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             descricao: "Experimente o luxo nas nossas suites com sala de estar separada. Decoração elegante, mobiliário premium e vistas deslumbrantes para uma estadia inesquecível.",
             capacidade: "2 adultos",
             tamanho: "45m²",
-            camas: "1 cama King size",
+            camas: "1 cama de casal",
             imagem: "img/quartos/suite1.png",
             amenidades: [
                 "Ar-condicionado",
@@ -96,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "Suite Familiar": {
             titulo: "Suite Familiar",
             descricao: "O máximo em conforto para famílias, com quarto principal, quarto para crianças e sala de estar. O espaço perfeito para férias familiares memoráveis.",
-            capacidade: "2 adultos e 3 crianças",
+            capacidade: "2 adultos e 2 crianças",
             tamanho: "65m²",
-            camas: "1 cama King size e 3 camas individuais",
+            camas: "1 cama de casal e 2 camas individuais",
             imagem: "img/quartos/suiteFamiliar1.png",
             amenidades: [
                 "Ar-condicionado em todas as áreas",
