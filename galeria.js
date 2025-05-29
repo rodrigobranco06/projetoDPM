@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     descricao: "Quarto com cama de casal e uma individual"
                 },
                 {
-                    src: "img/quartos/apartamentosofa2.png",
+                    src: "img/quartos/apartamentoSofa2.png",
                     titulo: "Sala de Estar",
                     descricao: "Sofá confortável para relaxar"
                 },
                 {
-                    src: "img/quartos/apartamentosofa3.png",
+                    src: "img/quartos/apartamentoSofa3.png",
                     titulo: "Casa de banho",
                     descricao: "Casa de banho elegante"
                 },
