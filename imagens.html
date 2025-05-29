@@ -1,25 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <title>CodeSuite Hotel - Galeria</title>
+    <link rel="stylesheet" href="styles/imagens.css">
 </head>
 <body>
-    <main>
-        <header>
-            <h1><a href="index.html">CodeSuite Hotel</a></h1>
-            <nav>
-                <ul>
-                    <li><a href="contacto.html">Contactos</a></li>
-                    <li><a href="imagens.html">Imagens</a></li>
-                    <li><a href="quartos.html">Quartos</a></li>
-                    <li><a href="reservas.html">Reservar</a></li> 
-                </ul>
-            </nav>
-        </header>
+    <header>
+        <h1><a href="index.html">CodeSuite Hotel</a></h1>
+        <nav>
+            <ul>
+                <li><a href="contacto.html">Contactos</a></li>
+                <li><a href="imagens.html">Imagens</a></li>
+                <li><a href="quartos.html">Quartos</a></li>
+                <li class="li-reservar"><a href="reservas.html">Reservar</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <h1 class="imagens-title">Galeria de Imagens</h1>
+
+    <main>
+        <section class="filtros-galeria">
+            <h2>Explore nosso hotel</h2>
+            <div class="filtros-botoes">
+                <button class="filtro-btn ativo" data-categoria="todos">Todas as Fotos</button>
+                <button class="filtro-btn" data-categoria="quartos">Quartos</button>
+                <button class="filtro-btn" data-categoria="instalacoes">Instalações</button>
+                <button class="filtro-btn" data-categoria="exterior">Área Externa</button>
+                <button class="filtro-btn" data-categoria="restaurante">Restaurante</button>
+                <button class="filtro-btn" data-categoria="lazer">Lazer</button>
+            </div>
+        </section>
+
+        <section class="galeria-grid" id="galeria-container">
+            <!-- Quartos -->
+            <div class="foto-item" data-categoria="quartos">
+                <img src="img/quartos/apartamento1.png" alt="Apartamento Standard">
+                <div class="foto-info">
+                    <span class="foto-categoria">Quartos</span>
+                    <h3>Apartamento Standard</h3>
+                    <p>Confortável apartamento com vista para os jardins, equipado com todas as comodidades necessárias para uma estadia perfeita.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="quartos">
+                <img src="img/quartos/apartamentoSuperior.png" alt="Apartamento Superior">
+                <div class="foto-info">
+                    <span class="foto-categoria">Quartos</span>
+                    <h3>Apartamento Superior</h3>
+                    <p>Apartamentos mais espaçosos com vista privilegiada para o mar e decoração moderna.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="quartos">
+                <img src="img/quartos/suite1.png" alt="Suite de Luxo">
+                <div class="foto-info">
+                    <span class="foto-categoria">Quartos</span>
+                    <h3>Suite de Luxo</h3>
+                    <p>Experimente o máximo em luxo com nossa suite, incluindo sala de estar separada e acabamentos premium.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="quartos">
+                <img src="img/quartos/familia1.png" alt="Apartamento Família">
+                <div class="foto-info">
+                    <span class="foto-categoria">Quartos</span>
+                    <h3>Apartamento Família</h3>
+                    <p>Espaço ideal para famílias, com áreas separadas e todas as comodidades para uma estadia confortável.</p>
+                </div>
+            </div>
+
+            <!-- Instalações -->
+            <div class="foto-item" data-categoria="instalacoes">
+                <img src="img/imagens_galeria/rececao.png" alt="Lobby Principal">
+                <div class="foto-info">
+                    <span class="foto-categoria">Instalações</span>
+                    <h3>Lobby Principal</h3>
+                    <p>Recepção elegante e acolhedora, com design moderno e atendimento 24 horas.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="instalacoes">
+                <img src="img/imagens_galeria/corredores.png" alt="Corredor do Hotel">
+                <div class="foto-info">
+                    <span class="foto-categoria">Instalações</span>
+                    <h3>Corredores Elegantes</h3>
+                    <p>Corredores bem iluminados e decorados, criando um ambiente sofisticado e acolhedor.</p>
+                </div>
+            </div>
+
+            <!-- Área Externa -->
+            <div class="foto-item" data-categoria="exterior">
+                <img src="img/imagens_galeria/piscina.png" alt="Piscina">
+                <div class="foto-info">
+                    <span class="foto-categoria">Área Externa</span>
+                    <h3>Piscina Principal</h3>
+                    <p>Piscina ampla com área de relaxamento, perfect para momentos de lazer e descanso.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="exterior">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jardins">
+                <div class="foto-info">
+                    <span class="foto-categoria">Área Externa</span>
+                    <h3>Jardins Paisagísticos</h3>
+                    <p>Belos jardins cuidadosamente planejados, criando um ambiente natural e relaxante.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="exterior">
+                <img src="img/imagens_galeria/terraco_vista.png" alt="Terraço">
+                <div class="foto-info">
+                    <span class="foto-categoria">Área Externa</span>
+                    <h3>Terraço com Vista</h3>
+                    <p>Terraço panorâmico com vista deslumbrante, ideal para relaxar e apreciar o pôr do sol.</p>
+                </div>
+            </div>
+
+            <!-- Restaurante -->
+            <div class="foto-item" data-categoria="restaurante">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Restaurante Principal">
+                <div class="foto-info">
+                    <span class="foto-categoria">Restaurante</span>
+                    <h3>Restaurante Principal</h3>
+                    <p>Ambiente elegante com culinária internacional e pratos da gastronomia local.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="restaurante">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bar do Hotel">
+                <div class="foto-info">
+                    <span class="foto-categoria">Restaurante</span>
+                    <h3>Bar & Lounge</h3>
+                    <p>Bar sofisticado com uma ampla seleção de bebidas e ambiente descontraído.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="restaurante">
+                <img src="img/imagens_galeria/pratos.png" alt="Bar do Hotel">
+                <div class="foto-info">
+                    <span class="foto-categoria">Restaurante</span>
+                    <h3>Pratos especiais do chefe</h3>
+                    <p>Cozinha sofisticada com uma ampla seleção de pratos de luxo.</p>
+                </div>
+            </div>
+
+            <!-- Lazer -->
+            <div class="foto-item" data-categoria="lazer">
+                <img src="img/imagens_galeria/spa.png" alt="Spa">
+                <div class="foto-info">
+                    <span class="foto-categoria">Lazer</span>
+                    <h3>Spa & Wellness</h3>
+                    <p>Centro de bem-estar completo com tratamentos relaxantes e espaço para meditação.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="lazer">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ginásio">
+                <div class="foto-info">
+                    <span class="foto-categoria">Lazer</span>
+                    <h3>Centro de Fitness</h3>
+                    <p>Ginásio moderno equipado com aparelhos de última geração para manter sua rotina de exercícios.</p>
+                </div>
+            </div>
+
+            <div class="foto-item" data-categoria="lazer">
+                <img src="img/imagens_galeria/sala_entretenimento.jpg" alt="Sala de Jogos">
+                <div class="foto-info">
+                    <span class="foto-categoria">Lazer</span>
+                    <h3>Sala de Entretenimento</h3>
+                    <p>Espaço dedicado ao entretenimento com jogos e atividades para toda a família.</p>
+                </div>
+            </div>
+        </section>
     </main>
+
+    
+
+    <footer>
+        <p>&copy; 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
+    </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Elementos da galeria
+                const filtrosBotoes = document.querySelectorAll('.filtro-btn');
+                const fotosItens = document.querySelectorAll('.foto-item');
+                const modal = document.getElementById('modal');
+                const modalImg = document.getElementById('modal-img');
+                const modalTitulo = document.getElementById('modal-titulo');
+                const modalDescricao = document.getElementById('modal-descricao');
+                const fecharModal = document.querySelector('.fechar');
+                const prevBtn = document.querySelector('.modal-prev');
+                const nextBtn = document.querySelector('.modal-next');
+                
+                let fotosVisiveis = [];
+                let fotoAtualIndex = 0;
+                
+                // Sistema de filtros
+                filtrosBotoes.forEach(botao => {
+                    botao.addEventListener('click', function() {
+                        const categoria = this.getAttribute('data-categoria');
+                        
+                        // Atualizar botão ativo
+                        filtrosBotoes.forEach(btn => btn.classList.remove('ativo'));
+                        this.classList.add('ativo');
+                        
+                        // Filtrar fotos
+                        fotosItens.forEach(foto => {
+                            if (categoria === 'todos' || foto.getAttribute('data-categoria') === categoria) {
+                                foto.style.display = 'block';
+                                foto.classList.remove('hidden');
+                            } else {
+                                foto.style.display = 'none';
+                                foto.classList.add('hidden');
+                            }
+                        });
+                        
+                        // Atualizar lista de fotos visíveis
+                        atualizarFotosVisiveis();
+                    });
+                });
+                
+                // Função para atualizar array de fotos visíveis
+                function atualizarFotosVisiveis() {
+                    fotosVisiveis = Array.from(fotosItens).filter(foto => !foto.classList.contains('hidden'));
+                }
+                
+                // Inicializar fotos visíveis
+                atualizarFotosVisiveis();
+                
+                // Abrir modal ao clicar em uma foto
+                fotosItens.forEach((foto, index) => {
+                    foto.addEventListener('click', function() {
+                        const img = this.querySelector('img');
+                        const titulo = this.querySelector('h3').textContent;
+                        const descricao = this.querySelector('p').textContent;
+                        
+                        // Encontrar índice na lista de fotos visíveis
+                        fotoAtualIndex = fotosVisiveis.indexOf(this);
+                        
+                        modalImg.src = img.src;
+                        modalImg.alt = img.alt;
+                        modalTitulo.textContent = titulo;
+                        modalDescricao.textContent = descricao;
+                        
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+                
+                // Fechar modal
+                fecharModal.addEventListener('click', fecharModalFunc);
+                
+                function fecharModalFunc() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+                
+                // Fechar modal clicando fora da imagem
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        fecharModalFunc();
+                    }
+                });
+                
+                // Navegação no modal
+                prevBtn.addEventListener('click', function() {
+                    fotoAtualIndex = (fotoAtualIndex - 1 + fotosVisiveis.length) % fotosVisiveis.length;
+                    atualizarModal();
+                });
+                
+                nextBtn.addEventListener('click', function() {
+                    fotoAtualIndex = (fotoAtualIndex + 1) % fotosVisiveis.length;
+                    atualizarModal();
+                });
+                
+                function atualizarModal() {
+                    const fotoAtual = fotosVisiveis[fotoAtualIndex];
+                    const img = fotoAtual.querySelector('img');
+                    const titulo = fotoAtual.querySelector('h3').textContent;
+                    const descricao = fotoAtual.querySelector('p').textContent;
+                    
+                    modalImg.src = img.src;
+                    modalImg.alt = img.alt;
+                    modalTitulo.textContent = titulo;
+                    modalDescricao.textContent = descricao;
+                }
+                
+                // Navegação por teclado
+                document.addEventListener('keydown', function(e) {
+                    if (modal.style.display === 'block') {
+                        if (e.key === 'ArrowLeft') {
+                            prevBtn.click();
+                        } else if (e.key === 'ArrowRight') {
+                            nextBtn.click();
+                        } else if (e.key === 'Escape') {
+                            fecharModalFunc();
+                        }
+                    }
+                });
+                
+                // Efeito de scroll no header
+                window.addEventListener('scroll', function() {
+                    const header = document.querySelector('header');
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+                
+                // Animação de entrada das fotos
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '0';
+                            entry.target.style.transform = 'translateY(20px)';
+                            entry.target.style.transition = 'all 0.6s ease';
+                            
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, 100);
+                            
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                fotosItens.forEach(foto => {
+                    observer.observe(foto);
+                });
+            });
+        </script>
 </body>
 </html>
