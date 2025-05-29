@@ -5,22 +5,22 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento": {
             titulo: "Apartamento Standard",
             descricao: "Os nossos apartamentos standard oferecem todo o conforto para a sua estadia. Equipados com duas camas de solteiro ou uma cama de casal, TV de tela plana, ar-condicionado e uma varanda com vista para os jardins ou piscina.",
-            capacidade: "2 adultos",
-            tamanho: "28m²",
-            camas: "2 individuais ou 1 casal",
+            capacidade: "2 adultos e 1 criança",
+            tamanho: "35m²",
+            camas: "1 cama de casal e 1 cama individual",
             fotos: [
                 {
                     src: "img/quartos/apartamento1.png",
-                    titulo: "Vista Geral do Apartamento",
-                    descricao: "Apartamento espaçoso com decoração moderna"
+                    titulo: "Quarto",
+                    descricao: "Quarto espaçoso com decoração moderna"
                 },
                 {
-                    src: "img/quartos/apartamento2.jpg",
+                    src: "img/quartos/apartamento2.png",
                     titulo: "Área de Descanso",
                     descricao: "Camas confortáveis com roupa de cama premium"
                 },
                 {
-                    src: "img/quartos/apartamento3.jpg",
+                    src: "img/quartos/apartamento3.png",
                     titulo: "Casa de Banho",
                     descricao: "Casa de banho moderna com duche"
                 },
@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento Superior": {
             titulo: "Apartamento Superior",
             descricao: "Os nossos apartamentos superiores oferecem uma experiência mais luxuosa com vista privilegiada para o mar. Maior espaço e decoração moderna para maximizar o seu conforto durante a estadia.",
-            capacidade: "2 adultos e 2 crianças",
+            capacidade: "2 adultos e 1 criança",
             tamanho: "35m²",
-            camas: "2 camas de casal",
+            camas: "1 cama de casal e 1 individual",
             fotos: [
                 {
                     src: "img/quartos/apartamentoSuperior.png",
@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     descricao: "Vista da varanda"
                 },
                 {
-                    src: "img/quartos/superior3.jpg",
-                    titulo: "Sala de Estar",
-                    descricao: "Área de estar com sofás confortáveis"
+                    src: "img/quartos/apartamentoSuperior3.png",
+                    titulo: "Casa de banho",
+                    descricao: "Casa de banho elegante"
                 },
 
             ]
@@ -54,24 +54,24 @@ document.addEventListener('DOMContentLoaded', function() {
         "Apartamento com sofá": {
             titulo: "Apartamento com Sofá",
             descricao: "Perfeito para relaxar, este apartamento inclui uma área de estar com sofá confortável, ideal para momentos de descanso após um dia de exploração.",
-            capacidade: "2 adultos e 1 criança",
-            tamanho: "32m²",
+            capacidade: "2 adultos e 2 crianças",
+            tamanho: "35m²",
             camas: "1 cama de casal, 1 cama individual e 1 sofá-cama",
             fotos: [
                 {
                     src: "img/quartos/apartamentoSofa.png",
-                    titulo: "Vista Geral",
-                    descricao: "Apartamento com área de estar integrada"
+                    titulo: "Quarto",
+                    descricao: "Quarto com cama de casal e uma individual"
                 },
                 {
-                    src: "img/quartos/sofa2.jpg",
-                    titulo: "Área de Estar",
+                    src: "img/quartos/apartamentosofa2.png",
+                    titulo: "Sala de Estar",
                     descricao: "Sofá confortável para relaxar"
                 },
                 {
-                    src: "img/quartos/sofa3.jpg",
-                    titulo: "Quarto Principal",
-                    descricao: "Cama de casal com vista para jardim"
+                    src: "img/quartos/apartamentosofa3.png",
+                    titulo: "Casa de banho",
+                    descricao: "Casa de banho elegante"
                 },
             ]
         },
@@ -80,22 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
             descricao: "Ideal para famílias, este apartamento espaçoso oferece áreas separadas para pais e crianças, garantindo conforto para toda a família durante a estadia.",
             capacidade: "2 adultos e 2 crianças",
             tamanho: "42m²",
-            camas: "1 cama de casal e 2 camas individuais",
+            camas: "2 camas de casal",
             fotos: [
                 {
                     src: "img/quartos/familia1.png",
-                    titulo: "Vista Geral Familiar",
+                    titulo: "Apartamento Família quarto",
                     descricao: "Apartamento espaçoso ideal para famílias"
                 },
                 {
-                    src: "img/quartos/familia2.jpg",
-                    titulo: "Quarto dos Pais",
-                    descricao: "Quarto principal com cama de casal"
+                    src: "img/quartos/familia2.png",
+                    titulo: "Apartamento Família quarto",
+                    descricao: " Quarto com 2 camas para a família"
                 },
                 {
-                    src: "img/quartos/familia3.jpg",
-                    titulo: "Quarto das Crianças",
-                    descricao: "Área dedicada às crianças com camas individuais"
+                    src: "img/quartos/familia3.png",
+                    titulo: "Casa de banho",
+                    descricao: "Casa de banho elegante para a família"
                 },
             ]
         },
@@ -104,46 +104,46 @@ document.addEventListener('DOMContentLoaded', function() {
             descricao: "Experimente o luxo nas nossas suites com sala de estar separada. Decoração elegante, mobiliário premium e vistas deslumbrantes para uma estadia inesquecível.",
             capacidade: "2 adultos",
             tamanho: "45m²",
-            camas: "1 cama King size",
+            camas: "1 cama de casal",
             fotos: [
                 {
                     src: "img/quartos/suite1.png",
-                    titulo: "Suite Luxuosa",
-                    descricao: "Suite elegante com decoração premium"
+                    titulo: "Quarto",
+                    descricao: "Cama de casal com lençóis de luxo"
                 },
                 {
-                    src: "img/quartos/suite2.jpg",
-                    titulo: "Quarto Principal da Suite",
-                    descricao: "Cama King-size com lençóis de luxo"
+                    src: "img/quartos/suite2.png",
+                    titulo: "Sala de estar",
+                    descricao: "Sala de estar elegante com decoração premium"
                 },
                 {
-                    src: "img/quartos/suite3.jpg",
-                    titulo: "Sala de Estar Privada",
-                    descricao: "Sala de estar separada com mobiliário elegante"
+                    src: "img/quartos/suite3.png",
+                    titulo: "Casa de banho",
+                    descricao: "Casa de banho espasosa e primium"
                 },
             ]
         },
         "Suite Familiar": {
             titulo: "Suite Familiar",
             descricao: "O máximo em conforto para famílias, com quarto principal, quarto para crianças e sala de estar. O espaço perfeito para férias familiares memoráveis.",
-            capacidade: "2 adultos e 3 crianças",
+            capacidade: "2 adultos e 2 crianças",
             tamanho: "65m²",
-            camas: "1 cama King size e 3 camas individuais",
+            camas: "1 cama de casal e 2 camas individuais",
             fotos: [
                 {
                     src: "img/quartos/suiteFamiliar1.png",
-                    titulo: "Suite Familiar Completa",
+                    titulo: "Suite Familiar 1º quarto",
                     descricao: "A suite mais espaçosa do hotel"
                 },
                 {
-                    src: "img/quartos/suiteFam2.jpg",
-                    titulo: "Quarto Principal dos Pais",
-                    descricao: "Quarto principal com cama King-size"
+                    src: "img/quartos/suiteFamiliar2.png",
+                    titulo: "Quarto Principal 2º quarto",
+                    descricao: "Quarto com cama de casal"
                 },
                 {
-                    src: "img/quartos/suiteFam3.jpg",
-                    titulo: "Quarto das Crianças",
-                    descricao: "Quarto espaçoso com 3 camas individuais"
+                    src: "img/quartos/suiteFamiliar3.png",
+                    titulo: "Casa de banho",
+                    descricao: "Casa de banho espasosa e primium"
                 },
             ]
         }
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let tipoAtual = "Apartamento";
     let fotosAtuais = [];
     let indiceAtual = 0;
-    let isLoading = false; // Flag para prevenir múltiplos carregamentos
+    let isLoading = false;
 
     // Elementos DOM
     const galeriaTitulo = document.getElementById('galeriaTitulo');
