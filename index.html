@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>CodeSuite Hotel</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1><a href="index.html">CodeSuite Hotel</a></h1>
-        <nav>
+        <button class="menu-toggle">☰</button>
+        <nav class="navbar">
             <ul>
                 <li><a href="contacto.html">Contactos</a></li>
                 <li><a href="imagens.html">Imagens</a></li>
@@ -19,89 +20,162 @@
         </nav>
     </header>
 
-    <main>
-        <!-- Carrossel de imagens -->
-        <section class="hero-carousel">
-            <div class="carousel-container">
-                <div class="carousel-slide active">
-                    <img src="img/hotel/exterior1.jpg" alt="Exterior do CodeSuite Hotel">
-                </div>
-                <div class="carousel-slide">
-                    <img src="img/imagens_galeria/piscina.png" alt="Piscina do CodeSuite Hotel">
-                </div>
-                <div class="carousel-slide">
-                    <img src="img/imagens_galeria/pratos.png" alt="Restaurante do CodeSuite Hotel">
-                </div>
+    <section class="hero-carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="img/hero/hero1.jpg" alt="Quarto Luxuoso">
                 <div class="carousel-overlay">
-                    <h2>CodeSuite Hotel</h2>
-                    <p>Bem-vindo ao seu refúgio de luxo!</p>
+                    <h2>Bem-vindo ao CodeSuite Hotel</h2>
+                    <p>Conforto e sofisticação para sua estadia inesquecível</p>
                 </div>
             </div>
-            <button class="carousel-prev">❮</button>
-            <button class="carousel-next">❯</button>
-        </section>
+            <div class="carousel-slide">
+                <img src="img/hero/hero2.jpg" alt="Piscina Relaxante">
+                <div class="carousel-overlay">
+                    <h2>Relaxe e Desfrute</h2>
+                    <p>Uma experiência única com vistas incríveis</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="img/hero/hero3.jpg" alt="Jantar Elegante">
+                <div class="carousel-overlay">
+                    <h2>Sabores Inesquecíveis</h2>
+                    <p>Descubra nossa culinária de classe mundial</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-prev">❮</button>
+        <button class="carousel-next">❯</button>
+    </section>
 
-        <!-- Seção de Quartos -->
-        <section class="quartos-preview">
-            <h2>Nossos Quartos</h2>
-            <div class="quartos-grid">
+    <section class="quartos-preview">
+        <h2>Conheça Nossos Quartos</h2>
+        <div class="quartos-carousel">
+            <div class="quartos-wrapper">
                 <div class="quarto-card">
                     <img src="img/quartos/apartamento1.png" alt="Apartamento Standard">
                     <h3>Apartamento Standard</h3>
                     <p>Conforto e praticidade com vista para os jardins ou piscina.</p>
-                    <a href="quartos.html" class="ver-mais">Ver Mais</a>
+                    <a href="quartos.html" class="ver-mais">Ver Detalhes</a>
                 </div>
                 <div class="quarto-card">
                     <img src="img/quartos/apartamentoSuperior.png" alt="Apartamento Superior">
                     <h3>Apartamento Superior</h3>
-                    <p>Mais espaço e vista privilegiada para o mar.</p>
-                    <a href="quartos.html" class="ver-mais">Ver Mais</a>
+                    <p>Luxo e espaço adicional com vista para o mar.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Detalhes</a>
+                </div>
+                <div class="quarto-card">
+                    <img src="img/quartos/apartamentoSofa.png" alt="Apartamento com Sofá">
+                    <h3>Apartamento com Sofá</h3>
+                    <p>Área de estar com sofá, ideal para relaxar.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Detalhes</a>
+                </div>
+                <div class="quarto-card">
+                    <img src="img/quartos/familia1.png" alt="Apartamento Família">
+                    <h3>Apartamento Família</h3>
+                    <p>Espaço amplo para famílias, com áreas separadas.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Detalhes</a>
                 </div>
                 <div class="quarto-card">
                     <img src="img/quartos/suite1.png" alt="Suite">
                     <h3>Suite</h3>
-                    <p>Luxo com sala de estar separada e vistas deslumbrantes.</p>
-                    <a href="quartos.html" class="ver-mais">Ver Mais</a>
+                    <p>Luxo e conforto com sala de estar separada.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Detalhes</a>
+                </div>
+                <div class="quarto-card">
+                    <img src="img/quartos/suiteFamiliar1.png" alt="Suite Familiar">
+                    <h3>Suite Familiar</h3>
+                    <p>Perfeito para famílias grandes, com quarto extra e sala de estar.</p>
+                    <a href="quartos.html" class="ver-mais">Ver Detalhes</a>
                 </div>
             </div>
-        </section>
+            <button class="quarto-prev">❮</button>
+            <button class="quarto-next">❯</button>
+        </div>
+    </section>
 
-        <!-- Seção de Testemunhos -->
-        <section class="testemunhos">
-            <h2>O que dizem nossos hóspedes</h2>
-            <div class="testemunhos-grid">
-                <div class="testemunho-card">
-                    <p>"Uma experiência inesquecível! O quarto era espaçoso e a vista para o mar era incrível."</p>
-                    <h4>Ana Silva</h4>
-                    <span>Dezembro 2024</span>
+    <section class="testemunhos">
+        <h2>O Que Nossos Hóspedes Dizem</h2>
+        <div class="testemunhos-container">
+            <div class="testemunhos-carousel">
+                <div class="testemunhos-wrapper">
+                    <div class="testemunho-slide">
+                        <div class="testemunho-card">
+                            <div class="estrelas">
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                            </div>
+                            <p>"Uma estadia incrível! O quarto era impecável, e a vista para o mar era de tirar o fôlego. Voltarei com certeza!"</p>
+                            <h4>Ana Silva</h4>
+                            <span>Lisboa, Portugal</span>
+                        </div>
+                    </div>
+                    <div class="testemunho-slide">
+                        <div class="testemunho-card">
+                            <div class="estrelas">
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela vazia">★</span>
+                            </div>
+                            <p>"A equipe foi muito atenciosa, e o café da manhã era delicioso. Recomendo para quem busca conforto."</p>
+                            <h4>João Pereira</h4>
+                            <span>Porto, Portugal</span>
+                        </div>
+                    </div>
+                    <div class="testemunho-slide">
+                        <div class="testemunho-card">
+                            <div class="estrelas">
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela">★</span>
+                                <span class="estrela vazia">★</span>
+                                <span class="estrela vazia">★</span>
+                            </div>
+                            <p>"O hotel é bom, mas o Wi-Fi deixou a desejar em alguns momentos. No geral, uma boa experiência."</p>
+                            <h4>Mariana Costa</h4>
+                            <span>Coimbra, Portugal</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="testemunho-card">
-                    <p>"O atendimento foi excepcional e a comida do restaurante estava deliciosa!"</p>
-                    <h4>João Pereira</h4>
-                    <span>Janeiro 2025</span>
-                </div>
-                <div class="testemunho-card">
-                    <p>"Perfeito para famílias! Meus filhos adoraram a piscina e o espaço familiar."</p>
-                    <h4>Maria Costa</h4>
-                    <span>Fevereiro 2025</span>
-                </div>
+                <button class="testemunho-prev">❮</button>
+                <button class="testemunho-next">❯</button>
             </div>
-
-            <!-- Formulário de Testemunho -->
             <div class="testemunho-form">
-                <h3>Deixe seu Testemunho</h3>
+                <h3>Deixe Seu Testemunho</h3>
                 <form>
                     <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
-                    <label for="data">Data da Estadia:</label>
-                    <input type="date" id="data" name="data" required>
-                    <label for="testemunho">Seu Testemunho:</label>
-                    <textarea id="testemunho" name="testemunho" placeholder="Escreva sua experiência..." required></textarea>
-                    <button type="submit" class="submit-btn">Enviar Testemunho</button>
+                    <input type="text" id="nome" placeholder="Seu nome" required>
+
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+
+                    <label for="avaliacao">Avaliação:</label>
+                    <div class="estrelas-input">
+                        <input type="radio" id="estrela1" name="avaliacao" value="1">
+                        <label for="estrela1">★</label>
+                        <input type="radio" id="estrela2" name="avaliacao" value="2">
+                        <label for="estrela2">★</label>
+                        <input type="radio" id="estrela3" name="avaliacao" value="3">
+                        <label for="estrela3">★</label>
+                        <input type="radio" id="estrela4" name="avaliacao" value="4">
+                        <label for="estrela4">★</label>
+                        <input type="radio" id="estrela5" name="avaliacao" value="5">
+                        <label for="estrela5">★</label>
+                    </div>
+
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" rows="5" placeholder="Escreva seu testemunho aqui..." required></textarea>
+
+                    <button type="submit" class="submit-btn">Enviar</button>
                 </form>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <footer>
         <p>© 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
