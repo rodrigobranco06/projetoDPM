@@ -9,6 +9,7 @@
 body {
     background-color: #f9f9f9;
     color: #333;
+    overflow-x: hidden;
 }
 
 /* Header */
@@ -55,10 +56,10 @@ header h1 a:hover {
 header h1 a::before {
     content: "";
     display: inline-block;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     margin-right: 10px;
-    background-image: url(img/logo.png);
+    background-image: url(../img/logo.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -67,6 +68,26 @@ header h1 a::before {
 
 header h1 a:hover::before {
     transform: scale(1.1);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 2px solid #007399;
+    border-radius: 4px;
+    font-size: 24px;
+    color: #007399;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background-color: rgba(0, 115, 153, 0.1);
+}
+
+.navbar {
+    transition: transform 0.3s ease;
 }
 
 nav ul {
@@ -108,8 +129,7 @@ nav ul li a::after {
     border-radius: 3px;
 }
 
-nav ul li a:hover::after,
-nav ul li a.active::after {
+nav ul li a:hover::after, nav ul li a.active::after {
     width: 100%;
 }
 
@@ -119,7 +139,7 @@ nav ul li a.active {
 
 .li-reservar {
     background-color: #005f7a;
-    padding: 4px 20px;
+    padding: 8px 20px;
     border-radius: 4px;
 }
 
@@ -135,12 +155,12 @@ nav ul li a.active {
     background-color: white;
 }
 
-/* Carrossel */
+/* Carrossel Hero */
 .hero-carousel {
     position: relative;
-    height: 600px;
+    height: 500px;
     overflow: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .carousel-container {
@@ -179,13 +199,13 @@ nav ul li a.active {
 }
 
 .carousel-overlay h2 {
-    font-size: 48px;
-    margin-bottom: 20px;
+    font-size: 40px;
+    margin-bottom: 15px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .carousel-overlay p {
-    font-size: 24px;
+    font-size: 20px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -197,8 +217,8 @@ nav ul li a.active {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    padding: 15px;
-    font-size: 24px;
+    padding: 10px;
+    font-size: 20px;
     cursor: pointer;
     z-index: 10;
     transition: background-color 0.3s;
@@ -210,31 +230,36 @@ nav ul li a.active {
 }
 
 .carousel-prev {
-    left: 20px;
+    left: 15px;
 }
 
 .carousel-next {
-    right: 20px;
+    right: 15px;
 }
 
-/* Seção de Quartos */
+/* Seção de Quartos (Carrossel) */
 .quartos-preview {
     max-width: 1200px;
-    margin: 0 auto 60px;
-    padding: 0 20px;
+    margin: 0 auto 50px;
+    padding: 0 15px;
 }
 
 .quartos-preview h2 {
-    font-size: 32px;
+    font-size: 28px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     color: #007399;
 }
 
-.quartos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+.quartos-carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.quartos-wrapper {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
 }
 
 .quarto-card {
@@ -245,6 +270,9 @@ nav ul li a.active {
     transition: transform 0.3s;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 350px;
+    margin: 10px 5px;
 }
 
 .quarto-card:hover {
@@ -253,19 +281,20 @@ nav ul li a.active {
 
 .quarto-card img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
 }
 
 .quarto-card h3 {
-    font-size: 20px;
-    padding: 15px 20px 10px;
+    font-size: 18px;
+    padding: 12px 15px 8px;
     color: #007399;
 }
 
 .quarto-card p {
-    padding: 0 20px 15px;
+    padding: 0 15px 12px;
     color: #666;
+    font-size: 14px;
 }
 
 .ver-mais {
@@ -274,8 +303,9 @@ nav ul li a.active {
     background-color: #007399;
     color: white;
     text-decoration: none;
-    padding: 12px;
+    padding: 10px;
     font-weight: bold;
+    font-size: 14px;
     transition: background-color 0.3s;
     margin-top: auto;
 }
@@ -284,102 +314,262 @@ nav ul li a.active {
     background-color: #005f7a;
 }
 
+.quarto-prev,
+.quarto-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+.quarto-prev:hover,
+.quarto-next:hover {
+    background-color: rgba(0, 115, 153, 0.8);
+}
+
+.quarto-prev {
+    left: 10px;
+}
+
+.quarto-next {
+    right: 10px;
+}
+
 /* Seção de Testemunhos */
 .testemunhos {
     max-width: 1200px;
-    margin: 0 auto 60px;
-    padding: 0 20px;
+    margin: 0 auto 50px;
+    padding: 0 15px;
 }
 
 .testemunhos h2 {
-    font-size: 32px;
+    font-size: 28px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     color: #007399;
 }
 
-.testemunhos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+.testemunhos-container {
+    display: flex;
     gap: 30px;
-    margin-bottom: 40px;
+    align-items: stretch;
+}
+
+.testemunhos-carousel {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.testemunhos-wrapper {
+    display: flex;
+    width: 300%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.testemunho-slide {
+    flex: 0 0 33.33%;
+    width: 33.33%;
 }
 
 .testemunho-card {
     background-color: white;
     border-radius: 8px;
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin: 10px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testemunho-card .estrelas {
+    margin-bottom: 12px;
+}
+
+.testemunho-card .estrela,
+.testemunho-card .estrela.vazia {
+    font-size: 18px;
+    color: #f4c430;
+    margin-right: 4px;
+}
+
+.testemunho-card .estrela.vazia {
+    color: #ddd;
 }
 
 .testemunho-card p {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     color: #666;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    flex-grow: 1;
 }
 
 .testemunho-card h4 {
-    font-size: 18px;
+    font-size: 16px;
     color: #007399;
     margin-bottom: 5px;
 }
 
 .testemunho-card span {
-    font-size: 14px;
+    font-size: 12px;
     color: #999;
 }
 
+.testemunho-prev,
+.testemunho-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+.testemunho-prev:hover,
+.testemunho-next:hover {
+    background-color: rgba(0, 115, 153, 0.8);
+}
+
+.testemunho-prev {
+    left: 10px;
+}
+
+.testemunho-next {
+    right: 10px;
+}
+
 .testemunho-form {
+    flex: 1;
     background-color: white;
     border-radius: 8px;
-    padding: 30px;
+    padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .testemunho-form h3 {
-    font-size: 24px;
+    font-size: 20px;
     color: #007399;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
 .testemunho-form form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    flex-grow: 1;
 }
 
 .testemunho-form label {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     font-weight: 500;
 }
 
 .testemunho-form input,
 .testemunho-form textarea {
-    padding: 12px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
     width: 100%;
 }
 
 .testemunho-form textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 80px;
+    flex-grow: 1;
+}
+
+.testemunho-form .estrelas-input {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.testemunho-form .estrelas-input input {
+    display: none;
+}
+
+.testemunho-form .estrelas-input label {
+    font-size: 18px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.testemunho-form .estrelas-input #estrela1:checked ~ label,
+.testemunho-form .estrelas-input #estrela2:checked ~ label,
+.testemunho-form .estrelas-input #estrela3:checked ~ label,
+.testemunho-form .estrelas-input #estrela4:checked ~ label,
+.testemunho-form .estrelas-input #estrela5:checked ~ label {
+    color: #ddd;
+}
+
+.testemunho-form .estrelas-input #estrela1:checked + label,
+.testemunho-form .estrelas-input #estrela2:checked + label,
+.testemunho-form .estrelas-input #estrela2:checked + label + label[for="estrela1"],
+.testemunho-form .estrelas-input #estrela3:checked + label,
+.testemunho-form .estrelas-input #estrela3:checked + label + label[for="estrela1"],
+.testemunho-form .estrelas-input #estrela3:checked + label + label[for="estrela2"],
+.testemunho-form .estrelas-input #estrela4:checked + label,
+.testemunho-form .estrelas-input #estrela4:checked + label + label[for="estrela1"],
+.testemunho-form .estrelas-input #estrela4:checked + label + label[for="estrela2"],
+.testemunho-form .estrelas-input #estrela4:checked + label + label[for="estrela3"],
+.testemunho-form .estrelas-input #estrela5:checked + label,
+.testemunho-form .estrelas-input #estrela5:checked + label + label[for="estrela1"],
+.testemunho-form .estrelas-input #estrela5:checked + label + label[for="estrela2"],
+.testemunho-form .estrelas-input #estrela5:checked + label + label[for="estrela3"],
+.testemunho-form .estrelas-input #estrela5:checked + label + label[for="estrela4"] {
+    color: #f4c430;
+}
+
+.testemunho-form .estrelas-input label:hover,
+.testemunho-form .estrelas-input label:hover ~ label {
+    color: #ddd;
+}
+
+.testemunho-form .estrelas-input label[for="estrela1"]:hover,
+.testemunho-form .estrelas-input label[for="estrela2"]:hover,
+.testemunho-form .estrelas-input label[for="estrela2"]:hover ~ label[for="estrela1"],
+.testemunho-form .estrelas-input label[for="estrela3"]:hover,
+.testemunho-form .estrelas-input label[for="estrela3"]:hover ~ label,
+.testemunho-form .estrelas-input label[for="estrela4"]:hover,
+.testemunho-form .estrelas-input label[for="estrela4"]:hover ~ label,
+.testemunho-form .estrelas-input label[for="quarto"]:hover,
+.testemunho-form .estrelas-input label[for="5"]:hover,
+.testemunho-form .estrelas-input .teste {
+    color: #f4c430;
 }
 
 .submit-btn {
     background-color: #007399;
     color: white;
     border: none;
-    padding: 12px;
+    padding: 10px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -399,25 +589,239 @@ footer {
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
-    .hero-carousel {
-        height: 400px;
+    header {
+        height: 60px;
+        padding: 10px 15px;
+        flex-direction: row;
     }
 
-    .carousel-overlay h2 {
-        font-size: 32px;
-    }
-
-    .carousel-overlay p {
-        font-size: 18px;
-    }
-
-    .quartos-preview h2,
-    .testemunhos h2 {
+    header h1 {
         font-size: 24px;
     }
 
-    .testemunho-form {
+    header h1 a::before {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-toggle {
+        display: block;
+        z-index: 1100;
+        position: relative;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #ffffff;
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        z-index: 1000;
+        padding-top: 60px;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar.open {
+        transform: translateX(0);
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
         padding: 20px;
+        height: 100%;
+    }
+
+    nav ul li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    nav ul li a {
+        font-size: 18px;
+        padding: 10px;
+        display: block;
+    }
+
+    .li-reservar {
+        padding: 8px 15px;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .hero-carousel {
+        height: 350px;
+    }
+
+    .carousel-overlay h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .carousel-overlay p {
+        font-size: 16px;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        padding: 8px;
+        font-size: 18px;
+    }
+
+    .quartos-preview h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .quartos-wrapper {
+        width: 600%;
+    }
+
+    .quarto-card {
+        flex: 100%;
+        width: auto;
+        margin: 10px 15px;
+    }
+
+    .quarto-card img {
+        height: 160px;
+    }
+
+    .quarto-card h3 {
+        font-size: 16px;
+        padding: 10px 15px 6px;
+    }
+
+    .quarto-card p {
+        font-size: 13px;
+        padding: 0 15px 10px;
+    }
+
+    .ver-mais {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .quarto-prev,
+    .quarto-next {
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    .testemunhos h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .testemunhos-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .testemunhos-carousel {
+        width: 100%;
+    }
+
+.testemunhos .testemunho-form {
+        width: 100%;
+        padding: 15px;
+    }
+
+.testemunhos .testemunho-form,
+    .testemunho-card {
+        min-height: auto;
+    }
+
+    .testemunho-cardnya {
+        margin: 10px 0;
+    }
+
+.testemunho .card .estrelas {
+        margin-bottom: 10px;
+    }
+
+.testemunho .testemunho-card .estrela,
+.testemunho-card .testemunho .estrela.vazia {
+        font-size: 14px;
+        margin-right: 3px;
+    }
+
+.testemunho .card p {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+.testemunho .testemunho-card h4 {
+        font-size: 14;
+    }
+
+.testemunho .card span {
+        font-size: 11px;
+    }
+
+.testemunho .testemunho-prev,
+.testemunho-next {
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    .testemunho-form h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .testemunho-form label {
+        font-size: 13px;
+    }
+
+.testemunho .form input,
+.testemunho-form textarea {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+.testemunho .form textarea {
+        min-height: 80px;
+    }
+
+.testemunho .form .estrelas-input label {
+        font-size: 16px;
+    }
+
+.test .submit-btn {
+    padding: 8px;
+    font-size: 12px;
+}
+
+    footer {
+    font-size: 12px;
+    padding: 12px;
+}
+
+/* Ajustado para telas intermediárias */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .quartos-d {
+        width: 45%;
+        margin: 10px 2.5%;
+    }
+
+    .quartos-wrapper {
+        width: 200%;
+    }
+}
+
+/* Ajustado para desktop */
+@media (min-width: 1025px) {
+    .quarto-card {
+        width: 30%;
+        margin: 5px 0.75%;
+    }
+
+    .quartos-wrapper {
+        width: 200%;
     }
 }
