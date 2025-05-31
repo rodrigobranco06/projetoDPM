@@ -269,4 +269,52 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Menu-toggle functionality
+    function initializeMenuToggle() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navbar = document.querySelector('.navbar');
+
+        if (!menuToggle || !navbar) {
+            console.error('Error: Menu-toggle or navbar not found in DOM. Check HTML structure.');
+            return;
+        }
+
+        console.log('Menu-toggle and navbar found in DOM');
+
+        // Toggle menu on button click
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = !navbar.classList.contains('open');
+            navbar.classList.toggle('open');
+            menuToggle.classList.toggle('open', isOpen);
+            console.log('Toggle clicked, isOpen:', isOpen, 'navbar classList:', navbar.classList);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navbar.classList.contains('open')) {
+                const isClickInsideNavbar = navbar.contains(e.target);
+                const isClickOnToggle = menuToggle.contains(e.target);
+                if (!isClickInsideNavbar && !isClickOnToggle) {
+                    navbar.classList.remove('open');
+                    menuToggle.classList.remove('open');
+                    console.log('Menu closed by clicking outside');
+                }
+            }
+        });
+
+        // Close menu when clicking a menu link
+        navbar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                navbar.classList.remove('open');
+                menuToggle.classList.remove('open');
+                console.log('Menu closed by clicking a link');
+            });
+        });
+    }
+
+    // Chama a função após o DOM estar carregado
+    initializeMenuToggle();
 });

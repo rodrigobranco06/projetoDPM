@@ -8,12 +8,12 @@
     <!-- Carregando a API do Google Maps com os novos componentes -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_9Jwtl1cS8IzuBoW9NbaxXQuGFs0de0c&callback=console.debug&libraries=maps,marker&v=beta">
     </script>
-    
 </head>
 <body>
     <header>
         <h1><a href="index.html">CodeSuite Hotel</a></h1>
-        <nav>
+        <button class="menu-toggle"></button>
+        <nav class="navbar">
             <ul>
                 <li><a href="contacto.html">Contactos</a></li>
                 <li><a href="imagens.html">Imagens</a></li>
@@ -48,7 +48,6 @@
             </div>
         </section>
 
-
         <!-- Seção do mapa usando os componentes GMP -->
         <section class="section-mapa">
             <div class="div-maps-container">
@@ -73,7 +72,40 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
+        <p>© 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
     </footer>
+
+    <!-- JavaScript to handle menu toggle and click-outside-to-close -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbar = document.querySelector('.navbar');
+
+            // Toggle menu on button click
+            menuToggle.addEventListener('click', () => {
+                const isOpen = navbar.classList.toggle('open');
+                menuToggle.classList.toggle('open', isOpen);
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                const isClickInsideNavbar = navbar.contains(e.target);
+                const isClickOnToggle = menuToggle.contains(e.target);
+
+                if (!isClickInsideNavbar && !isClickOnToggle && navbar.classList.contains('open')) {
+                    navbar.classList.remove('open');
+                    menuToggle.classList.remove('open');
+                }
+            });
+
+            // Close menu when clicking a menu link
+            navbar.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbar.classList.remove('open');
+                    menuToggle.classList.remove('open');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

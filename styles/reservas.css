@@ -69,6 +69,20 @@ header h1 a:hover::before {
     transform: scale(1.1);
 }
 
+header nav ul li {
+    position: relative;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 10px 5px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
 .menu-toggle {
     display: none;
     background: none;
@@ -138,7 +152,7 @@ nav ul li a.active {
 
 .li-reservar {
     background-color: #005f7a;
-    padding: 8px 20px;
+    padding: 4px 20px;
     border-radius: 4px;
 }
 
@@ -151,7 +165,15 @@ nav ul li a.active {
 }
 
 .li-reservar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
     background-color: white;
+    transition: width 0.3s ease;
+    border-radius: 3px;
 }
 
 /* Footer */

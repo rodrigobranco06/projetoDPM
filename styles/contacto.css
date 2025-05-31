@@ -12,9 +12,6 @@ body {
     line-height: 1.6;
 }
 
-/* Header ====================================================================== */
-
-/* Estilos para o Header */
 /* Header */
 header {
     background-color: #ffffff;
@@ -25,7 +22,7 @@ header {
     z-index: 1000;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Já está alinhando verticalmente ao centro */
+    align-items: center;
     height: 80px;
     transition: all 0.3s ease;
 }
@@ -39,7 +36,7 @@ header h1 {
     font-size: 28px;
     margin: 0;
     display: flex;
-    align-items: center; /* Garante que o logo e o texto do h1 estejam centralizados verticalmente */
+    align-items: center;
 }
 
 header h1 a {
@@ -114,14 +111,14 @@ header nav ul li a.active {
 nav ul {
     display: flex;
     list-style: none;
-    align-items: center; /* Alinha os itens da lista verticalmente ao centro */
-    margin: 0; /* Remove margens para evitar desalinhamento */
+    align-items: center;
+    margin: 0;
 }
 
 nav ul li {
     margin-left: 20px;
     display: flex;
-    align-items: center; /* Garante que cada item da lista esteja centralizado verticalmente */
+    align-items: center;
 }
 
 nav ul li a {
@@ -137,8 +134,8 @@ nav ul li a:hover {
 
 .li-reservar {
     background-color: #005f7a;
-    padding: 4px 20px; /* Ajusta o padding para consistência */
-    border-radius: 4px; /* Adiciona borda arredondada para um visual mais suave */
+    padding: 4px 20px;
+    border-radius: 4px;
 }
 
 .li-reservar a {
@@ -161,6 +158,38 @@ nav ul li a:hover {
     border-radius: 3px;
 }
 
+/* Menu Toggle (Hidden by default for desktop) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 2px solid #007399;
+    border-radius: 4px;
+    font-size: 24px;
+    color: #007399;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    z-index: 1100;
+    position: relative;
+    line-height: 1;
+}
+
+.menu-toggle::before {
+    content: "☰"; /* Hamburger icon */
+}
+
+.menu-toggle.open::before {
+    content: "✕"; /* Close icon */
+}
+
+.menu-toggle.open {
+    border-color: #007399;
+    color: #007399;
+}
+
+.menu-toggle:hover {
+    background-color: rgba(0, 115, 153, 0.1);
+}
 
 /* Footer */
 footer {
@@ -170,8 +199,6 @@ footer {
     padding: 20px;
     margin-top: 50px;
 }
-
-/* Main ====================================================================== */
 
 /* Título da Seção de Contatos */
 .contactos-loc_title {
@@ -194,7 +221,7 @@ footer {
 }
 
 /* Layout da Seção de Contato */
-.section-form-contacto, .section-info-contacto {
+.section-form-contacto, .section-mapa {
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -221,7 +248,7 @@ footer {
     color: #007399;
 }
 
-.div-info-contato, .div-form-contacto p{
+.div-info-contato, .div-form-contacto p {
     font-size: 18px;
     color: #000000;
 }
@@ -335,136 +362,312 @@ form button:active {
     transform: scale(1.05);
 }
 
+/* Estilos para o componente do mapa */
+gmp-map {
+    width: 100%;
+    height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+gmp-map:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
+}
 
-/* Responsividade */
-@media (max-width: 900px) {
-    .section-form-contacto {
+.div-maps-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+    gap: 20px;
+    align-items: center;
+}
+
+.map-container {
+    flex: 0.8;
+    min-width: 600px;
+}
+
+.hotel-info {
+    flex: 1;
+    padding: 40px;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 500px;
+}
+
+.hotel-info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
+}
+
+.hotel-info h3 {
+    font-size: 26px;
+    color: #007399;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.hotel-info h3::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #007399;
+    margin: 10px auto 0;
+    border-radius: 1.5px;
+}
+
+.hotel-info address {
+    font-style: normal;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.hotel-info p {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 28px;
+    text-align: center;
+}
+
+.location-icon::before,
+.phone-icon::before,
+.email-icon::before {
+    position: absolute;
+    left: 0;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.location-icon::before {
+    content: "📍";
+}
+
+.phone-icon::before {
+    content: "📞";
+}
+
+.email-icon::before {
+    content: "📧";
+}
+
+/* Media Queries for Desktop Adjustments */
+@media (max-width: 1200px) and (min-width: 769px) {
+    .div-maps-container {
         flex-direction: column;
+        align-items: center;
     }
-    
-    .div-form-contacto {
+
+    .map-container, .hotel-info {
         width: 100%;
-        margin-right: 0;
-        margin-bottom: 30px;
+        max-width: 480px;
     }
-    
-    .div-img-form-contacto {
-        width: 100%;
-        height: 300px;
-    }
-    
-    .contactos-loc_title {
-        font-size: 36px;
-        padding: 40px 20px;
+
+    gmp-map {
+        height: 400px;
     }
 }
 
+/* Media Queries for Mobile Optimization */
+@media (max-width: 768px) {
+    header {
+        flex-direction: row;
+        padding: 10px 5%;
+        height: auto;
+    }
 
-/* Estilos para o componente do mapa */
-        gmp-map {
-            width: 100%;
-            height: 450px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        gmp-map:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
-        }
-        
-        .div-maps-container {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto 80px;
-            padding: 0 20px;
-            gap: 40px;
-        }
-        
-        .map-container {
-            flex: 1.5;
-        }
-        
-        .hotel-info {
-            flex: 1;
-            padding: 40px;
-            background-color: white;
-            box-shadow: 0 10px 30px rgba(0, 115, 153, 0.1);
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .hotel-info:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 115, 153, 0.15);
-        }
-        
-        .hotel-info h3 {
-            font-size: 26px;
-            color: #007399;
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hotel-info h3::after {
-            content: "";
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: #007399;
-            margin: 10px auto 0;
-            border-radius: 1.5px;
-        }
-        
-        .hotel-info address {
-            font-style: normal;
-            line-height: 1.8;
-            font-size: 17px;
-        }
-        
-        .hotel-info p {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 28px;
-            text-align: center;
-        }
-        
-        .location-icon::before,
-        .phone-icon::before,
-        .email-icon::before {
-            position: absolute;
-            left: 0;
-            font-family: sans-serif;
-            font-weight: bold;
-        }
-        
-        .location-icon::before {
-            content: "📍";
-        }
-        
-        .phone-icon::before {
-            content: "📞";
-        }
-        
-        .email-icon::before {
-            content: "📧";
-        }
-        
-        @media (max-width: 900px) {
-            .div-maps-container {
-                flex-direction: column;
-            }
-            
-            gmp-map {
-                height: 350px;
-                margin-bottom: 20px;
-            }
-        }
-  
+    header h1 {
+        font-size: 24px;
+    }
 
+    header h1 a::before {
+        width: 50px;
+        height: 50px;
+    }
 
+    .menu-toggle {
+        display: block;
+    }
 
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #ffffff;
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        z-index: 1000;
+        padding-top: 60px;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar.open {
+        transform: translateX(0);
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 20px;
+        height: 100%;
+    }
+
+    nav ul li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    nav ul li a {
+        font-size: 18px;
+        padding: 10px;
+        display: block;
+    }
+
+    .li-reservar {
+        padding: 8px 15px;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .contactos-loc_title {
+        font-size: 32px;
+        padding: 40px 15px 20px;
+    }
+
+    .section-form-contacto, .section-mapa {
+        flex-direction: column;
+        padding: 0 10px;
+        margin-bottom: 40px;
+    }
+
+    .div-form-contacto, .div-info-contato {
+        padding: 20px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .div-form-contacto h1, .div-info-contato h1 {
+        font-size: 24px;
+        padding-bottom: 15px;
+    }
+
+    form label {
+        font-size: 14px;
+    }
+
+    form input, form textarea {
+        padding: 12px 14px;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    form button {
+        padding: 12px;
+        font-size: 14px;
+        min-height: 48px;
+    }
+
+    .div-img-form-contacto {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 20px;
+    }
+
+    .div-maps-container {
+        flex-direction: column;
+        padding: 0 10px;
+        max-width: none;
+    }
+
+    .map-container, .hotel-info {
+        width: 100%;
+        min-width: 0;
+    }
+
+    gmp-map {
+        height: 300px;
+        margin-bottom: 20px;
+    }
+
+    .hotel-info {
+        padding: 20px;
+    }
+
+    .hotel-info h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .hotel-info address {
+        font-size: 15px;
+    }
+
+    .hotel-info p {
+        font-size: 14px;
+        padding-left: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 20px;
+    }
+
+    header h1 a::before {
+        width: 50px;
+        height: 50px;
+    }
+
+    .contactos-loc_title {
+        font-size: 28px;
+        padding: 30px 10px 15px;
+    }
+
+    .div-form-contacto h1, .div-info-contato h1 {
+        font-size: 20px;
+    }
+
+    form label {
+        font-size: 13px;
+    }
+
+    form input, form textarea {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    form button {
+        font-size: 13px;
+    }
+
+    .div-img-form-contacto {
+        height: 200px;
+    }
+
+    gmp-map {
+        height: 250px;
+    }
+
+    .hotel-info h3 {
+        font-size: 20px;
+    }
+
+    .hotel-info address {
+        font-size: 14px;
+    }
+
+    .hotel-info p {
+        font-size: 13px;
+    }
+}

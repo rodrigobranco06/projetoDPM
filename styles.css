@@ -69,6 +69,19 @@ header h1 a::before {
 header h1 a:hover::before {
     transform: scale(1.1);
 }
+header nav ul li {
+    position: relative;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 10px 5px;
+    transition: color 0.3s ease;
+    position: relative;
+}
 
 .menu-toggle {
     display: none;
@@ -139,7 +152,7 @@ nav ul li a.active {
 
 .li-reservar {
     background-color: #005f7a;
-    padding: 8px 20px;
+    padding: 4px 20px;
     border-radius: 4px;
 }
 
@@ -152,7 +165,15 @@ nav ul li a.active {
 }
 
 .li-reservar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
     background-color: white;
+    transition: width 0.3s ease;
+    border-radius: 3px;
 }
 
 /* Carrossel Hero */
@@ -359,7 +380,7 @@ nav ul li a.active {
 .testemunhos-container {
     display: flex;
     gap: 30px;
-    align-items: stretch;
+    align-items: center;
 }
 
 .testemunhos-carousel {
@@ -514,7 +535,7 @@ nav ul li a.active {
 
 .testemunho-form .estrelas-input label {
     font-size: 18px;
-    color: #ddd;
+    color: #f4c430;
     cursor: pointer;
     transition: color 0.3s;
 }
@@ -557,9 +578,8 @@ nav ul li a.active {
 .testemunho-form .estrelas-input label[for="estrela3"]:hover ~ label,
 .testemunho-form .estrelas-input label[for="estrela4"]:hover,
 .testemunho-form .estrelas-input label[for="estrela4"]:hover ~ label,
-.testemunho-form .estrelas-input label[for="quarto"]:hover,
-.testemunho-form .estrelas-input label[for="5"]:hover,
-.testemunho-form .estrelas-input .teste {
+.testemunho-form .estrelas-input label[for="estrela5"]:hover,
+.testemunho-form .estrelas-input label[for="estrela5"]:hover ~ label {
     color: #f4c430;
 }
 
@@ -589,10 +609,11 @@ footer {
 }
 
 /* Responsividade */
+@media (max-width: 768px) {
     header {
-        height: 60px;
-        padding: 10px 15px;
         flex-direction: row;
+        padding: 10px 5%;
+        height: auto;
     }
 
     header h1 {
@@ -726,45 +747,45 @@ footer {
         width: 100%;
     }
 
-.testemunhos .testemunho-form {
+    .testemunho-form {
         width: 100%;
         padding: 15px;
     }
 
-.testemunhos .testemunho-form,
+    .testemunho-form,
     .testemunho-card {
         min-height: auto;
     }
 
-    .testemunho-cardnya {
+    .testemunho-card {
         margin: 10px 0;
     }
 
-.testemunho .card .estrelas {
+    .testemunho-card .estrelas {
         margin-bottom: 10px;
     }
 
-.testemunho .testemunho-card .estrela,
-.testemunho-card .testemunho .estrela.vazia {
+    .testemunho-card .estrela,
+    .testemunho-card .estrela.vazia {
         font-size: 14px;
         margin-right: 3px;
     }
 
-.testemunho .card p {
+    .testemunho-card p {
         font-size: 13px;
         margin-bottom: 10px;
     }
 
-.testemunho .testemunho-card h4 {
-        font-size: 14;
+    .testemunho-card h4 {
+        font-size: 14px;
     }
 
-.testemunho .card span {
+    .testemunho-card span {
         font-size: 11px;
     }
 
-.testemunho .testemunho-prev,
-.testemunho-next {
+    .testemunho-prev,
+    .testemunho-next {
         padding: 6px;
         font-size: 16px;
     }
@@ -778,28 +799,113 @@ footer {
         font-size: 13px;
     }
 
-.testemunho .form input,
-.testemunho-form textarea {
+    .testemunho-form input,
+    .testemunho-form textarea {
         padding: 8px;
         font-size: 13px;
     }
 
-.testemunho .form textarea {
+    .testemunho-form textarea {
         min-height: 80px;
     }
 
-.testemunho .form .estrelas-input label {
+    .testemunho-form .estrelas-input label {
         font-size: 16px;
     }
 
-.test .submit-btn {
-    padding: 8px;
-    font-size: 12px;
-}
+    .submit-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
 
     footer {
-    font-size: 12px;
-    padding: 12px;
+        font-size: 12px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 20px;
+    }
+
+    header h1 a::before {
+        width: 40px;
+        height: 40px;
+    }
+
+    .hero-carousel {
+        height: 350px;
+    }
+
+    .carousel-overlay h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .carousel-overlay p {
+        font-size: 16px;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        padding: 8px;
+        font-size: 18px;
+    }
+
+    .quartos-preview h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .quarto-card h3 {
+        font-size: 16px;
+        padding: 10px 15px 6px;
+    }
+
+    .quarto-card p {
+        font-size: 13px;
+        padding: 0 15px 10px;
+    }
+
+    .ver-mais {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .testemunhos h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .testemunho-form h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .testemunho-form label {
+        font-size: 13px;
+    }
+
+    .testemunho-form input,
+    .testemunho-form textarea {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .testemunho-form .estrelas-input label {
+        font-size: 16px;
+    }
+
+    .submit-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    footer {
+        font-size: 12px;
+        padding: 12px;
+    }
 }
 
 /* Ajustado para telas intermediárias */
