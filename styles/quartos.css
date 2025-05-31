@@ -1,4 +1,4 @@
-/*Quartos e apartamentos*/  
+/* Quartos e apartamentos */  
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +9,6 @@
 body {
     background-color: #f9f9f9;
     color: #333;
-    
 }
 
 /* Header */
@@ -22,7 +21,7 @@ header {
     z-index: 1000;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Já está alinhando verticalmente ao centro */
+    align-items: center;
     height: 80px;
     transition: all 0.3s ease;
 }
@@ -36,7 +35,7 @@ header h1 {
     font-size: 28px;
     margin: 0;
     display: flex;
-    align-items: center; /* Garante que o logo e o texto do h1 estejam centralizados verticalmente */
+    align-items: center;
 }
 
 header h1 a {
@@ -111,14 +110,14 @@ header nav ul li a.active {
 nav ul {
     display: flex;
     list-style: none;
-    align-items: center; /* Alinha os itens da lista verticalmente ao centro */
-    margin: 0; /* Remove margens para evitar desalinhamento */
+    align-items: center;
+    margin: 0;
 }
 
 nav ul li {
     margin-left: 20px;
     display: flex;
-    align-items: center; /* Garante que cada item da lista esteja centralizado verticalmente */
+    align-items: center;
 }
 
 nav ul li a {
@@ -134,8 +133,8 @@ nav ul li a:hover {
 
 .li-reservar {
     background-color: #005f7a;
-    padding: 4px 20px; /* Ajusta o padding para consistência */
-    border-radius: 4px; /* Adiciona borda arredondada para um visual mais suave */
+    padding: 4px 20px;
+    border-radius: 4px;
 }
 
 .li-reservar a {
@@ -156,6 +155,39 @@ nav ul li a:hover {
     background-color: white;
     transition: width 0.3s ease;
     border-radius: 3px;
+}
+
+/* Menu Toggle (Hidden by default for desktop) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 2px solid #007399;
+    border-radius: 4px;
+    font-size: 24px;
+    color: #007399;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    z-index: 1100;
+    position: relative;
+    line-height: 1;
+}
+
+.menu-toggle::before {
+    content: "☰"; /* Hamburger icon */
+}
+
+.menu-toggle.open::before {
+    content: "✕"; /* Close icon */
+}
+
+.menu-toggle.open {
+    border-color: #007399;
+    color: #007399;
+}
+
+.menu-toggle:hover {
+    background-color: rgba(0, 115, 153, 0.1);
 }
 
 /* Footer */
@@ -260,7 +292,6 @@ footer {
     font-weight: bold;
 }
 
-
 .quarto-detalhe {
     display: flex;
     max-width: 1200px;
@@ -281,15 +312,13 @@ footer {
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: all 0.3s ease; /* Transição suave para efeito de hover */
+    transition: all 0.3s ease;
 }
 
-/* Efeito de escurecimento ao passar o rato */
 .quarto-imagem:hover img {
     filter: brightness(0.7);
 }
 
-/* Botão centralizado na imagem */
 .show-more {
     position: absolute;
     top: 50%;
@@ -307,7 +336,6 @@ footer {
     opacity: 0.9;
 }
 
-/* Efeito de hover */
 .show-more:hover {
     background-color: #007399;
     color: white;
@@ -315,7 +343,6 @@ footer {
     opacity: 1;
 }
 
-/* Para dispositivos móveis, ajuste o posicionamento */
 @media (max-width: 768px) {
     .quarto-imagem {
         margin-right: 0;
@@ -427,7 +454,7 @@ footer {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform 0.3s;
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -468,7 +495,6 @@ footer {
     background-color: #005f7a;
 }
 
-
 @media (max-width: 768px) {
     .quarto-detalhe {
         flex-direction: column;
@@ -488,5 +514,68 @@ footer {
     
     .quarto-amenidades li {
         width: 100%;
+    }
+
+    /* Menu Toggle para dispositivos móveis */
+    header {
+        flex-direction: row;
+        padding: 10px 5%;
+        height: auto;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    header h1 a::before {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #ffffff;
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        z-index: 1000;
+        padding-top: 60px;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar.open {
+        transform: translateX(0);
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 20px;
+        height: 100%;
+    }
+
+    nav ul li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    nav ul li a {
+        font-size: 16px;
+        padding: 10px;
+        display: block;
+    }
+
+    .li-reservar {
+        padding: 8px 15px;
+        margin: 10px 0;
+        text-align: center;
     }
 }
