@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSuite Hotel - Galeria de Fotos (Reservas)</title>
+    <link rel="stylesheet" href="/styles/galeria-reservas.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <a href="index.html">CodeSuite Hotel</a>
+        </h1>
+        <nav class="navbar">
+            <ul>
+                <li><a href="contactos.html">Contactos</a></li>
+                <li><a href="imagens.html">Imagens</a></li>
+                <li><a href="quartos.html">Quartos</a></li>
+                <li class="li-reservar"><a href="reservas.html">Reservar</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle"></button>
+    </header>
+
+    <main>
+        <section class="galeria-header">
+            <button class="btn-voltar" onclick="window.location.href='reservas.html'">← Voltar às Reservas</button>
+            <h1 class="galeria-titulo" id="galeriaTitulo">Galeria de Fotos</h1>
+            <p class="galeria-subtitulo" id="galeriaSubtitulo">Apartamento Standard</p>
+        </section>
+
+        <section class="filtros-container">
+            <h3>Ver fotos de:</h3>
+            <div class="filtros-botoes">
+                <button class="filtro-btn active" data-tipo="Apartamento">Apartamento Standard</button>
+                <button class="filtro-btn" data-tipo="Apartamento Superior">Apartamento Superior</button>
+                <button class="filtro-btn" data-tipo="Apartamento com sofá">Apartamento com Sofá</button>
+                <button class="filtro-btn" data-tipo="Apartamento Família">Apartamento Família</button>
+                <button class="filtro-btn" data-tipo="Suite">Suite</button>
+                <button class="filtro-btn" data-tipo="Suite Familiar">Suite Familiar</button>
+            </div>
+        </section>
+
+        <section class="galeria-container">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                Carregando fotos...
+            </div>
+            <div class="fotos-grid" id="fotosGrid">
+                <!-- Fotos serão carregadas dinamicamente -->
+            </div>
+        </section>
+
+        <section class="info-apartamento">
+            <div class="info-card">
+                <h3 id="infoTitulo">Apartamento Standard</h3>
+                <div class="info-detalhes">
+                    <div class="detalhe"><span class="icon">👥</span><span id="infoCapacidade">Capacidade: 2 adultos</span></div>
+                    <div class="detalhe"><span class="icon">📏</span><span id="infoTamanho">Tamanho: 28m²</span></div>
+                    <div class="detalhe"><span class="icon">🛏️</span><span id="infoCamas">Camas: 2 individuais ou 1 casal</span></div>
+                </div>
+                <p id="infoDescricao">Os nossos apartamentos standard oferecem todo o conforto para a sua estadia.</p>
+                <a href="reservas.html" class="btn-reservar">Reservar Agora</a>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">×</button>
+            <button class="modal-nav modal-prev" id="modalPrev">‹</button>
+            <button class="modal-nav modal-next" id="modalNext">›</button>
+            <div class="modal-content">
+                <img src="" alt="" class="modal-image" id="modalImage">
+                <div class="modal-info">
+                    <h4 id="modalTitulo">Foto do Apartamento</h4>
+                    <p id="modalDescricao">Descrição da foto</p>
+                </div>
+            </div>
+            <span class="modal-counter" id="modalCounter">1 / 5</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 CodeSuite Hotel. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="galeria-reservas.js"></script>
+</body>
+</html>
