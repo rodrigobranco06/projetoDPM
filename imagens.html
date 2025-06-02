@@ -265,31 +265,31 @@
                 });
             });
             
-            // // Fechar modal
-            // fecharModal.addEventListener('click', fecharModalFunc);
+            // Fechar modal
+            fecharModal.addEventListener('click', fecharModalFunc);
             
-            // function fecharModalFunc() {
-            //     modal.style.display = 'none';
-            //     document.body.style.overflow = 'auto';
-            // }
+            function fecharModalFunc() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
             
-            // // Fechar modal clicando fora da imagem
-            // modal.addEventListener('click', function(e) {
-            //     if (e.target === modal) {
-            //         fecharModalFunc();
-            //     }
-            // });
+            // Fechar modal clicando fora da imagem
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    fecharModalFunc();
+                }
+            });
             
-            // // Navegação no modal
-            // prevBtn.addEventListener('click', function() {
-            //     fotoAtualIndex = (fotoAtualIndex - 1 + fotosVisiveis.length) % fotosVisiveis.length;
-            //     atualizarModal();
-            // });
+            // Navegação no modal
+            prevBtn.addEventListener('click', function() {
+                fotoAtualIndex = (fotoAtualIndex - 1 + fotosVisiveis.length) % fotosVisiveis.length;
+                atualizarModal();
+            });
             
-            // nextBtn.addEventListener('click', function() {
-            //     fotoAtualIndex = (fotoAtualIndex + 1) % fotosVisiveis.length;
-            //     atualizarModal();
-            // });
+            nextBtn.addEventListener('click', function() {
+                fotoAtualIndex = (fotoAtualIndex + 1) % fotosVisiveis.length;
+                atualizarModal();
+            });
             
             function atualizarModal() {
                 const fotoAtual = fotosVisiveis[fotoAtualIndex];

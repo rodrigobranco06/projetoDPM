@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             novoBotao.textContent = 'Mostrar mais Fotos';
             quartoImagem.appendChild(novoBotao);
             novoBotao.addEventListener('click', function() {
-                alert(`Galeria de fotos para: ${apartamentoInfo.titulo}`);
+                window.location.href = `galeria-reservas.html?tipo=${encodeURIComponent(tipoApartamento)}`;
             });
         } else {
             console.log("Tipo de apartamento não encontrado nos dados");
@@ -241,14 +241,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const itemSelecionado = document.querySelector('.selector-item.selected');
             if (itemSelecionado) {
                 const tipoAtual = itemSelecionado.querySelector('span:not(.check-mark)').textContent;
-                const apartamentoAtual = apartamentosData[tipoAtual];
-                if (apartamentoAtual) {
-                    alert(`Galeria de fotos para: ${apartamentoAtual.titulo}`);
-                } else {
-                    alert('Galeria de fotos');
-                }
+                window.location.href = `galeria-reservas.html?tipo=${encodeURIComponent(tipoAtual)}`;
             } else {
-                alert('Galeria de fotos para: Apartamento Standard');
+                window.location.href = `galeria-reservas.html?tipo=${encodeURIComponent('Apartamento')}`;
             }
         });
     }
