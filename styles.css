@@ -56,8 +56,8 @@ header h1 a:hover {
 header h1 a::before {
     content: "";
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     margin-right: 10px;
     background-image: url(../img/logo.png);
     background-size: contain;
